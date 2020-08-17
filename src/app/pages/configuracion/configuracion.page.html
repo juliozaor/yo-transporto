@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-toolbar color="#f77708">
+        <ion-buttons slot="start" (click)="toggleMenu()">
+            <!--  <ion-icon slot="icon-only" name="menu"></ion-icon> -->
+
+            <ion-menu-button menu="primerMenu" color="primary"></ion-menu-button>
+
+        </ion-buttons>
+        <ion-title>configuración</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid fixed>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button (click)="logout()" expand="block" fill="clear" shape="round">
+                    Cerrar Sesión
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

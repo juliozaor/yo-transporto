@@ -1,0 +1,56 @@
+<ion-menu side="start" menuId="primerMenu" contentId="Pageprincipal">
+    <ion-header class="ion-no-border">
+        <ion-toolbar color="encabezado">
+
+            <ion-avatar slot="start">
+                <img src='/assets/avatars/{{ usuario.foto }}' *ngIf="usuario.foto" />
+            </ion-avatar>
+            <ion-title>{{ usuario.nombre }}</ion-title>
+
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+
+        <ion-refresher slot="fixed" (ionRefresh)="recargar($event)" pullFactor="0.8" pullMin="60" pullMax="120" #refresh>
+            <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+
+        <ion-list>
+
+            <ion-menu-toggle *ngFor="let c of componentes | async">
+                <ion-item [routerLink]="c.redirectTo" detail>
+                    <ion-icon slot="start" [name]="c.icon"></ion-icon>
+                    <ion-label>{{ c.name }}</ion-label>
+                </ion-item>
+
+            </ion-menu-toggle>
+
+            <!-- <ion-menu-toggle>
+
+                <ion-item>
+                    <ion-button (click)="conductor()" expand="block" shape="round" color="success">
+                        Cambiar a Modo Conductor
+                    </ion-button>
+                </ion-item>
+            </ion-menu-toggle> -->
+
+        </ion-list>
+
+    </ion-content>
+
+    <ion-footer>
+        <ion-toolbar>
+            <ion-menu-toggle>
+                <!-- <ion-button (click)="logout()" expand="block" shape="round" color="danger">
+                    Cerrar Sesión
+                </ion-button> -->
+
+                <ion-button (click)="cambiarModo()" expand="block" shape="round" color="success" #modo>
+                    {{ modoUsuario }}
+                </ion-button>
+            </ion-menu-toggle>
+
+        </ion-toolbar>
+
+    </ion-footer>
+</ion-menu>

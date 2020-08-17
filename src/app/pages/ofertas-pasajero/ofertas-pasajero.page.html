@@ -1,0 +1,139 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar color="#f77708">
+        <ion-buttons slot="start" (click)="toggleMenu()">
+            <!--  <ion-icon slot="icon-only" name="menu"></ion-icon> -->
+
+            <ion-menu-button menu="primerMenu" color="primary"></ion-menu-button>
+
+        </ion-buttons>
+        <ion-title>Ofertas pasajero</ion-title>
+    </ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged($event)" color="tertiary" value="recibidas">
+
+        <ion-segment-button value="aceptadas">
+            <ion-label>Aceptadas</ion-label>
+        </ion-segment-button>
+
+        <ion-segment-button value="ofertadas">
+            <ion-label>Ofertadas</ion-label>
+        </ion-segment-button>
+
+
+    </ion-segment>
+</ion-header>
+
+<!-- <div>
+    <ion-segment (ionChange)="segmentChanged($event)" color="tertiary" value="recibidas">
+
+        <ion-segment-button value="aceptadas">
+            <ion-label>Aceptadas</ion-label>
+        </ion-segment-button>
+
+        <ion-segment-button value="ofertadas">
+            <ion-label>Ofertadas</ion-label>
+        </ion-segment-button>
+
+
+    </ion-segment>
+</div> -->
+
+<ion-content [scrollEvents]="true" #content>
+
+    <!-- refresh -->
+    <ion-refresher slot="fixed" (ionRefresh)="recargar($event)" pullFactor="0.8" pullMin="60" pullMax="120" #refresh>
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+
+    <ion-slides mode="ios" pager="false" scrollbar="ios" #slides>
+        <ion-slide>
+
+            <ion-grid fixed>
+                <ion-row *ngIf="aceptadas">
+                    <ion-col size="12">
+                        <ion-list *ngFor="let oferta of aceptadas" #lista>
+
+                            <ion-item color="medium" (click)="verOfertaConductor(oferta)">
+
+                                <ion-label>
+                                    <h1>Conductor: {{ oferta.usuario.nombre}}</h1>
+                                    <p>Origen: {{ oferta.oferta.origen}}</p>
+                                    <p>Destino: {{ oferta.oferta.destino}}</p>
+                                    <p>Comentarios: {{ oferta.oferta.comentarios}}</p>
+
+                                    <p class="ion-text-right">precio: {{ oferta.oferta.tarifa }}</p>
+                                </ion-label>
+
+                            </ion-item>
+
+
+
+
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </ion-slide>
+        <ion-slide>
+
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-list #lista>
+
+
+                            <ion-item-sliding *ngFor="let list of ofertas">
+                                <ion-item color="light" (click)="verOfertaPasajero(list)">
+
+                                    <ion-label>
+                                        <h1 *ngIf=" list.codTipoServicio == '1'">Ciudad</h1>
+                                        <h1 *ngIf=" list.codTipoServicio == '2'">Interurbano</h1>
+                                        <h1 *ngIf=" list.codTipoServicio == '3'">Envio</h1>
+                                        <h1 *ngIf=" list.codTipoServicio == '4'">Mercancia</h1>
+
+                                        <p>Comentarios: {{list.comentarios}}</p>
+
+                                    </ion-label>
+                                    <ion-label slot="end" class="ion-text-right">
+                                        precio: {{ list.tarifa }}
+                                    </ion-label>
+                                </ion-item>
+
+
+                                <!-- <ion-item-options side="start">
+                                    <ion-item-option (click)="favorite(list)">
+                                        <ion-icon slot="icon-only" name="heart"></ion-icon>
+                                    </ion-item-option>
+                                    <ion-item-option color="secondary" (click)="share(list)">
+                                        <ion-icon slot="icon-only" name="share"></ion-icon>
+                                    </ion-item-option>
+                                </ion-item-options>
+
+                                <ion-item-options side="end">
+                                    <ion-item-option color="danger" (click)="borrar(list)">
+                                        <ion-icon slot="icon-only" name="trash"></ion-icon>
+                                    </ion-item-option>
+                                </ion-item-options>-->
+
+                            </ion-item-sliding>
+
+
+
+
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+
+        </ion-slide>
+    </ion-slides>
+
+    <!-- infinite scroll -->
+    <ion-infinite-scroll [disabled]="!habilitado" threshold="150px" position="bottom" (ionInfinite)="cargarOfertas($event)">
+        <ion-infinite-scroll-content>
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

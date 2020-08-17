@@ -1,0 +1,291 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar color="#f77708">
+
+        <ion-buttons slot="start" (click)="toggleMenu()">
+            <!--  <ion-icon slot="icon-only" name="menu"></ion-icon> -->
+
+            <ion-menu-button menu="primerMenu" color="primary"></ion-menu-button>
+
+        </ion-buttons>
+        <ion-title>Tú pides</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+    <!-- mapa -->
+    <app-mapa [coords]="coords" lugar="principal" *ngIf="coords"></app-mapa>
+
+
+    <!-- Servicios -->
+
+    <ion-grid fixed>
+
+        <ion-text color="primary" class="aling-center">
+            <h3>Servicios</h3>
+        </ion-text>
+        <ion-text>
+            <h4>Escoja el tipo de servicio que desea recibir</h4>
+        </ion-text>
+        <ion-row>
+            <ion-col size="3">
+                <ion-card class="redondear">
+                    <ion-img src="./assets/imagenes/ciudad.png" (click)="ciudad()"></ion-img>
+                </ion-card>
+            </ion-col>
+            <ion-col size="3">
+                <ion-card class="redondear">
+                    <ion-img src="./assets/imagenes/domicilios.png" (click)="mensajeria()"></ion-img>
+                </ion-card>
+
+            </ion-col>
+            <!--  <ion-col size="2">
+                <ion-img src="./assets/imagenes/.png" (click)="ciudad2()"></ion-img>
+            </ion-col> -->
+            <ion-col size="3">
+                <ion-card class="redondear">
+                    <ion-img src="./assets/imagenes/inter_urbano.png" (click)="interurbano()"></ion-img>
+                </ion-card>
+
+            </ion-col>
+            <ion-col size="3">
+                <ion-card class="redondear">
+                    <ion-img src="./assets/imagenes/camion.png" (click)="mercancia()"></ion-img>
+                </ion-card>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-slides mode="ios" pager="false" scrollbar="ios" #slides>
+
+
+        <ion-slide class="aling-left">
+
+            <ion-grid fixed class="color-blanco">
+                <ion-row>
+                    <ion-col size="12">
+                        <h3>Ciudad</h3>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaCiudad.destino" placeholder="Destino" name="c-destino">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaCiudad.tarifa" placeholder="Ofrezca su tarifa" name="c-tarifa">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input class="texto-normal" type="text" [(ngModel)]="ofertaCiudad.comentarios" placeholder="Comentarios" multiline="true" name="c-comentario">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-label color="primary">Que requiero: </ion-label>
+                        <ion-item>
+                            <ion-label>Aire</ion-label>
+                            <ion-checkbox mode="ios" [(ngModel)]="ofertaCiudad.aire"></ion-checkbox>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Musica</ion-label>
+                            <ion-checkbox mode="ios" [(ngModel)]="ofertaCiudad.musica"></ion-checkbox>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Asientos bebes</ion-label>
+                            <ion-checkbox mode="ios" [(ngModel)]="ofertaCiudad.asientos"></ion-checkbox>
+                        </ion-item>
+
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+
+        <ion-slide class="aling-left">
+
+            <ion-grid fixed class="color-blanco">
+                <ion-row>
+                    <ion-col size="12">
+                        <h3>Domicilios</h3>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6">
+                        <ion-label>cant. bolsa</ion-label>
+                        <ion-select [(ngModel)]="ofertaEnvio.cantBolsas" interface="popover" placeholder="Cantidad de Bolsas">
+                            <ion-select-option value="-4Bolsas">-4 Bolsas</ion-select-option>
+                            <ion-select-option value="+4Bolsas">+4 Bolsas</ion-select-option>
+                        </ion-select>
+
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-label>Peso. Kg</ion-label>
+                        <ion-select [(ngModel)]="ofertaEnvio.peso_kilos" interface="popover" placeholder="Peso/kilos">
+                            <ion-select-option value="-100">- 100</ion-select-option>
+                            <ion-select-option value="+100-200">+100 -200</ion-select-option>
+                            <ion-select-option value="+200-300">+200 -300</ion-select-option>
+                            <ion-select-option value="+300-400">+300 -400</ion-select-option>
+                        </ion-select>
+
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaEnvio.origen" placeholder="Recogida" name="e-recogida">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaEnvio.destino" placeholder="Destino" name="e-destino">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaEnvio.tarifa" placeholder="Ofrezca su tarifa" name="e-tarifa">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input class="texto-normal" type="text" [(ngModel)]="ofertaEnvio.comentarios" placeholder="Comentarios" multiline="true" name="e-comentario">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </ion-slide>
+
+        <ion-slide class="aling-left">
+
+            <ion-grid fixed class="color-blanco">
+                <ion-row>
+                    <ion-col size="12">
+                        <h3>Inter Urbano</h3>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaInter.origen" placeholder="Origen" name="i-origen">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaInter.destino" placeholder="Destino" name="i-destino">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="date" [(ngModel)]="ofertaInter.fecha" placeholder="Fecha Prevista" name="i-fecha">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaInter.tarifa" placeholder="Ofrezca su tarifa" name="i-tarifa">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input class="texto-normal" type="text" [(ngModel)]="ofertaInter.comentarios" placeholder="Comentarios" multiline="true" name="c-comentario">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-label color="primary">Que requiero: </ion-label>
+                        <ion-item>
+                            <ion-label>Aire</ion-label>
+                            <ion-checkbox mode="ios" [(ngModel)]="ofertaInter.aire"></ion-checkbox>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Musica</ion-label>
+                            <ion-checkbox mode="ios" [(ngModel)]="ofertaInter.musica"></ion-checkbox>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Asientos bebes</ion-label>
+                            <ion-checkbox mode="ios" [(ngModel)]="ofertaInter.asientos"></ion-checkbox>
+                        </ion-item>
+
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+
+        <ion-slide class="aling-left">
+
+            <ion-grid fixed class="color-blanco">
+                <ion-row>
+                    <ion-col size="12">
+                        <h3>Mercancia</h3>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaMercancia.origen" placeholder="Origen" name="m-origen">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaMercancia.destino" placeholder="Destino" name="m-destino">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="date" [(ngModel)]="ofertaMercancia.fecha" name="m-fecha">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaMercancia.tarifa" placeholder="Ofrezca su tarifa" name="m-tarifa">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input class="texto-normal" type="text" [(ngModel)]="ofertaMercancia.comentarios" placeholder="Descripción de la mercancia" multiline="true" name="m-comentario">
+                            <ion-icon slot="start" name="person"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+
+            </ion-grid>
+        </ion-slide>
+
+    </ion-slides>
+
+    <ion-button expand="block" shape="round" (click)="solicitarServicio()">
+        Solicitud de servicio
+    </ion-button>
+
+
+</ion-content>

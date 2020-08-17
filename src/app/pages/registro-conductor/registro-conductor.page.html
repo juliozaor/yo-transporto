@@ -1,0 +1,911 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar color="#f77708">
+        <ion-title>
+            <div style="white-space: normal;">
+                {{titulo}}
+
+            </div>
+
+        </ion-title>
+
+
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding" [scrollEvents]="true" #content>
+
+    <ion-slides mode="ios" pager="false" #slides>
+
+        <!-- Registrate como conductor -->
+        <ion-slide>
+            <ion-grid fixed class="aling-left">
+                <ion-row>
+                    <ion-text>
+                        <h4>Escribe tu ciudad y dirección</h4>
+                    </ion-text>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+
+                        <ion-input type="text" [(ngModel)]="ciudad" placeholder="Ciudad" class="input-background" color="dark"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="direccion" placeholder="Dirección" class="input-background" color="dark"></ion-input>
+
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-img src="./assets/imagenes/vehiculos.png"></ion-img>
+                </ion-row>
+                <ion-row>
+                    <ion-text>
+                        <h4>llena la mayos cantidad de datos posibles para que podamos conocerte y así puedas hacer parte de esta gran familia</h4>
+                        <h4>Presiona continuar y lee atentamente cada una de las opciones que se te presentaran</h4>
+                    </ion-text>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-button (click)="continuar('1')" expand="block" shape="round">
+                            Continuar
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+
+
+        <!--Permitenos conocerte-->
+        <ion-slide>
+
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col size="6">
+                        <img (click)="tipoV('1')" src="./assets/imagenes/bicicleta.png" class="border" />
+                    </ion-col>
+                    <ion-col size="6">
+                        <img (click)="tipoV('2')" src="./assets/imagenes/moto.png" class="border" />
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6">
+                        <img (click)="tipoV('3')" src="./assets/imagenes/auto.png" class="border" />
+                    </ion-col>
+                    <ion-col size="6">
+                        <img (click)="tipoV('4')" src="./assets/imagenes/camion_inicio.png" class="border" />
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-text color="primary">
+                            <h2 class="aling-center">¿Qué tipo de vehiculo manejas?</h2>
+                        </ion-text>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4">
+
+                        <ion-button (click)="volver('0')" expand="block" shape="round" color="secondary">
+                            <ion-icon slot="start" name="arrow-undo"></ion-icon>
+                            Volver
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </ion-slide>
+
+        <!-- Generar ganancias -->
+        <ion-slide>
+            <ion-grid fixed class="aling-left">
+                <ion-row>
+                    <ion-text>
+                        <h3>Puedes escoger entre varias categorias y decidir si deseas conducir tu vehiculo o el de otro
+                        </h3>
+                    </ion-text>
+                </ion-row>
+                <ion-row>
+                    <ion-text>
+                        <h4 class="color-azul">Conoce más condiciones</h4>
+                    </ion-text>
+                </ion-row>
+                <ion-row *ngIf="tipoVehiculo == '3' || tipoVehiculo == '4'">
+                    <ion-col size="12">
+
+                        <ion-list>
+
+                            <ion-item color="light">
+                                <ion-select [(ngModel)]="desplazamientoOP" multiple="false" placeholder="Seleccione su desplazamiento">
+                                    <ion-select-option value="interurbano">Interurbano</ion-select-option>
+                                    <ion-select-option value="ciudad">Ciudad</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                            <ion-item color="light" *ngIf="desplazamientoOP == 'interurbano'">
+                                <ion-select [(ngModel)]="desplazamientoGR" multiple="false" placeholder="Seleccione una opción">
+                                    <ion-select-option value="dos">Entre dos ciudades</ion-select-option>
+                                    <ion-select-option value="todas">Nacional</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+
+
+                            <ion-item color="light" *ngIf="desplazamientoGR == 'dos' && desplazamientoOP == 'interurbano'">
+                                <ion-row>
+                                    <ion-col size="6">
+                                        <ion-input type="text" [(ngModel)]="ciudad1" placeholder="ciudad 1"></ion-input>
+                                    </ion-col>
+                                    <ion-col size="6">
+                                        <ion-input type="text" [(ngModel)]="ciudad2" placeholder="ciudad 2"></ion-input>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-item>
+
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-list>
+                        <ion-item color="light" (click)="generar('a')">
+                            <ion-text>
+                                <h3>Quiero conducir mi vehiculo</h3>
+                                <p>Soy mayor de edad, tengo un vehiculo y quiero conducir con Yo transporto.
+                                </p>
+                            </ion-text>
+                        </ion-item>
+                        <ion-item color="light" (click)="generar('c')">
+                            <ion-text>
+                                <h3>Soy conductor</h3>
+                                <p>Soy mayor de edad, no tengo vehiculo y quiero conducir con Yo transporto.
+                                </p>
+                            </ion-text>
+                        </ion-item>
+                        <ion-item color="light" (click)="generar('b')">
+                            <ion-text>
+                                <h3>Quiero que alguien más maneje mi vehiculo</h3>
+                            </ion-text>
+                        </ion-item>
+
+                    </ion-list>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4">
+
+                        <ion-button (click)="volver('1')" expand="block" shape="round" color="secondary">
+                            <ion-icon slot="start" name="arrow-undo"></ion-icon>
+                            Volver
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+
+        <!-- Bienvenida -->
+        <ion-slide>
+            <ion-grid fixed class="aling-left">
+                <ion-row>
+                    <ion-text>
+                        <h3 class="color-azul"> Paso requerido</h3>
+                        <p>Esto se debe hacer para configurar la cuenta como conductor, y aceptara o negara el acceso.
+                        </p>
+                    </ion-text>
+                </ion-row>
+                <ion-row *ngIf="generarGanancia == 'b'">
+                    <ion-col size="12">
+                        <ion-label>Escoja un conductor para su vehiculo</ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-list>
+                            <!-- <ion-item color="light" *ngIf="generarGanancia == 'b'">
+                                <ion-select class="ancho-100" placeholder="Escoja un conductor">
+                                    <ion-select-option *ngFor="let c of conductor" value="{{c.id}}">{{ c.nombre}}</ion-select-option>
+                                </ion-select>
+                            </ion-item> -->
+                            <ion-item color="light" detail (click)="acuerdosLegales()">
+                                <ion-text>
+                                    <h3>Acuerdos Legales</h3>
+                                </ion-text>
+                            </ion-item>
+                            <ion-item color="light" detail (click)="fotosVehiculo()" *ngIf="generarGanancia != 'c'">
+                                <ion-text>
+                                    <h3>Datos del vehiculo</h3>
+                                </ion-text>
+                            </ion-item>
+                            <ion-item color="light" detail (click)="licencia()" *ngIf="tipoVehiculo != '1' && generarGanancia != 'b'">
+                                <ion-text>
+                                    <h3>Licencia del conductor</h3>
+
+                                </ion-text>
+                            </ion-item>
+                            <ion-item color="light" detail (click)="tarjetaPropiedad()" *ngIf="generarGanancia != 'c'">
+                                <ion-text>
+                                    <h3>Tarjeta de propiedad</h3>
+                                </ion-text>
+                            </ion-item>
+                            <ion-item color="light" detail (click)="soat()" *ngIf="generarGanancia != 'c' && tipoVehiculo != '1'">
+                                <ion-text>
+                                    <h3>SOAT</h3>
+                                </ion-text>
+                            </ion-item>
+                            <!-- <ion-item color="light" detail (click)="simit()" *ngIf="generarGanancia != 'b'">
+                                <ion-text>
+                                    <h3>SIMIT</h3>
+                                </ion-text>
+                            </ion-item> -->
+                        </ion-list>
+                    </ion-col>
+
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4">
+
+                        <ion-button (click)="volver('2')" expand="block" shape="round" color="secondary">
+                            <ion-icon slot="start" name="arrow-undo"></ion-icon>
+                            Volver
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="8">
+                        <ion-button (click)="inicio()" expand="block" shape="round">
+                            Continuar
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+
+        <!-- Acuerdos legales -->
+        <ion-slide>
+            <ion-grid fixed class="aling-left">
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-text>
+                            <h2>Acuerdo de Prestación de Servicios de Software de Gestión Empresarial vía Web de SUMMERGT S.A.S</h2>
+
+
+                            <p>El presente Acuerdo de Prestación de Servicios (en adelante, el “Acuerdo”) se celebra entre SUMMERGT S.A.S, compañía domiciliada en la Carrera 20 # 18 – 43, Segundo Piso Sincelejo - Sucre, Colombia, (en adelante el “EL PROVEEDOR”
+                                o “PROVEEDOR”) y la persona natural o la entidad que a través de su representante legal acepta los términos estipulados en éste documento (en adelante el “EL CLIENTE” o “CLIENTE”), tal y como aparece identificado/a al final
+                                de este acuerdo al pie de su firma o en el formulario de aceptación diligenciado en la página WEB.
+                            </p>
+                            <p>El presente Acuerdo delimita los Términos y Condiciones de uso y de acceso al Servicio que se define más adelante y se entiende perfeccionado a partir del momento en que el CLIENTE acepte los mismos, al firmar el presente documento
+                                o al aceptar electrónicamente el mismo, que para todos los efectos tiene igual implicación. Como evidencia de la aceptación de éste Acuerdo, el PROVEEDOR guardará el registro de quién aceptó sus condiciones, y a petición
+                                por escrito del CLIENTE enviará copia electrónica del mismo al correo registrado por quien lo aceptó.
+                            </p>
+                            <p>La persona que Acepta el presente Acuerdo manifiesta que: a) en caso de ser una persona natural, cuenta con mayoría de edad; en caso de representar a una persona jurídica, cuenta con la autoridad suficiente para vincular legalmente
+                                a la empresa y/o entidad a los términos y condiciones del mismo; b) ha leído y comprendido el presente Acuerdo junto con sus anexos; c) acepta el contenido del Acuerdo en su totalidad en nombre de la parte que representa
+                                o en nombre propio.
+                            </p>
+                            <p>
+                                1. Definiciones:<br> 1.1. “Servicio” o “Servicios”: Hace referencia a la funcionalidad que el CLIENTE opera en su dispositivo o computador al utilizar la “Plataforma”, el “Aplicativo”, la “Aplicación” o el “Software” suministrado
+                                por EL PROVEEDOR. Los términos “Plataforma”, “Aplicativo”, “Aplicación” o “Software” anteriormente mencionados serán utilizados de forma sinónima en éste Acuerdo.
+                                <br> 1.2. “Pago por el Servicio” o “Pago”: Se refiere al pago mensual o importe específicamente acordado con el CLIENTE en contraprestación del uso de la Aplicación o de servicios conexos a la misma, todo esto dentro de
+                                los criterios estipulados en el presente Acuerdo.
+                                <br> 1.3. “Cuenta de Usuario Final” o “Usuario Final”: Hace referencia al mecanismo a través del cual cada persona nombrada accede al Servicio, utilizando un “login” y “password” individual e intransferible. La Cuenta de
+                                Usuario Final solo puede ser utilizada por una persona física a la vez.
+                                <br> 1.4. Licenciatarios: Compañías terceras que han llegado a un acuerdo económico o de alianza de negocios con EL PROVEEDOR para proveerle a éste tecnología, software o conocimiento relevante e instrumental en la prestación
+                                del Servicio.
+                                <br> 1.5. Socios de negocio: Compañías que han llegado a un acuerdo económico o de alianza de negocios con EL PROVEEDOR para participar en la estructuración, comercialización, implantación, despliegue o mantenimiento del
+                                Servicio en cuestión. <br> 1.6. Mantenimiento planeado: Mantenimiento de rutina ejecutado por EL PROVEEDOR para dar soporte y actualizar la Aplicación. Por definición, los Mantenimientos Planeados son informados con anticipación
+                                al CLIENTE y son ejecutados dentro de los horarios de mantenimiento pre-acordados con EL CLIENTE en el presente Acuerdo.
+                                <br> 1.7. Mantenimiento no-planeado: Mantenimiento correctivo o de emergencia ejecutado por EL PROVEEDOR para dar soporte a la aplicación y corregir una eventualidad que no se encontraba prevista (por ejemplo corregir un
+                                error o ejecutar un parche de seguridad.). Por definición, los Mantenimientos No-planeados ocurren aleatoriamente y por ende son ejecutados en cualquier horario y muchas veces no es posible informarlos con anticipación
+                                al CLIENTE. <br> 1.8. Datos del Cliente: Son los datos personales que El CLIENTE ingrese o registre en el Software una vez comienza a operar el Servicio. Los Datos del Cliente incluyen pero no se limitan a toda aquella
+                                información transaccional generada de manera específica cuando el CLIENTE opera su negocio utilizando el Servicio, tal como la información contable, financiera, de datos de terceros, de datos de inventario, de cuentas por
+                                cobrar y por pagar, de datos referentes a nómina, y todos aquellos que sean necesarios para la correcta parametrización y operación del Software. El PROVEEDOR actuará como responsable del tratamiento de los datos personales
+                                que el CLIENTE ingrese o registre en el Software una vez comienza a operar el Servicio. El CLIENTE autoriza al PROVEEDOR para incluir en el Software los datos indicados en esta cláusula, y será el responsable de obtener
+                                las autorizaciones de terceros para incluir sus datos en el Software, cuando éstas sean requeridas. El CLIENTE mantendrá indemne al PROVEEDOR en caso de reclamos, demandas, multas, condenas, u otros perjuicios que se causen
+                                al PROVEEDOR en caso de que el CLIENTE no haya obtenido las autorizaciones requeridas por la ley vigente en ese momento en Colombia respecto a la protección de datos (como lo son, por ejemplo, la Ley 1581 de 2012, y el
+                                Decreto Reglamentario 1377 de 2013).
+                                <br> Si bien la Plataforma donde se despliega el Servicio es fundamentalmente la misma para todos los clientes, los Datos del CLIENTE, por su propia naturaleza, son diferentes para cada CLIENTE. Los Datos del CLIENTE son
+                                considerados por el PROVEEDOR como información estrictamente confidencial, y en consecuencia, el PROVEEDOR solamente tendrá acceso a ellos con el único propósito de que el Servicio se preste adecuadamente. El PROVEEDOR
+                                podrá solicitar al CLIENTE, y éste las pondrá a disposición del primero, las autorizaciones que haya obtenido de terceros para el tratamiento de datos, según las normas legales.
+                            </p>
+                            <p>
+                                2. Prerrequisitos para operar el Servicio:
+                                <br> 2.1. Acceso a internet de banda ancha: Para poder acceder al Servicio de forma idónea, EL CLIENTE debe contar con una conexión de banda ancha a internet. La conexión mínima recomendada para operar el Servicio es de
+                                mínimo 5 MB por segundo, la cual soportará hasta 3 usuarios concurrentes (siempre y cuando ese canal no se esté utilizando para otros asuntos). Adicionalmente, el cliente debe contar con 1.6 MB por segundo por cada usuario
+                                adicional que desee operar bajo una misma conexión a internet. “Usuarios Concurrentes” se refiere al número de usuarios que acceden la Aplicación a la vez, utilizando una misma conexión a internet. El Servicio puede ser
+                                operado con anchos de banda menores, pero EL PROVEEDOR no se responsabiliza por el desempeño que presente el aplicativo si no se cumple el estándar mínimo de velocidad de conexión. <br> 2.2. Equipo de cómputo adecuado:
+                                Para utilizar el Software de manera idónea, el CLIENTE debe contar con equipo de cómputo con buena memoria RAM y velocidad de procesamiento así como la última versión disponible del browser gratuito “Chrome” de Google.
+                                <br> Responsabilidad limitada del PROVEEDOR frente a la infraestructura básica: EL PROVEEDOR no será responsable por experiencias insatisfactorias del usuario resultantes de no cumplir con la infraestructura mínima recomendada
+                                para operar la Plataforma. EL PROVEEDOR tampoco será responsable de dificultades en la comunicación causadas por dificultades en las redes o los servicios de proveedores de telecomunicaciones de terceros.
+                                <br> 2.3. Recomendaciones adicionales de infraestructura: Debido a la criticidad de los procesos operados por el Software, es recomendable desplegar dos conexiones a internet, con dos operadores alternos (el operador alterno
+                                puede ser desplegado bien sea vía una conexión fija, o a través de una red móvil de internet de alta velocidad –4G o LTE). Lo anterior facilitará una redundancia respecto a la conectividad hacia la Aplicación.
+                            </p>
+                            <p>
+                                3. Niveles de Servicio: <br> Durante el Término de Duración del Servicio, EL PROVEEDOR se compromete a lo siguiente: <br> 3.1. Disponibilidad: los horarios de disponibilidad de la aplicación serán los siguientes: Lunes
+                                a Sábado de 6am a 11pm; Domingos y Feriados de 6am a 7pm. La disponibilidad es calculada sobre los horarios críticos, puesto que en horas diferentes PSL se reserva el derecho a hacer mantenimiento y actualizaciones a la
+                                aplicación. Sin embargo, de no existir ninguna tarea de mantenimiento o actualización, el software estaría disponible para el usuario también en horarios considerados como no-críticos. <br> 3.2. Mantenimiento planeado:
+                                En consecuencia con lo anterior, EL PROVEEDOR se compromete a desplegar tareas de mantenimiento en horarios por fuera de los definidos como críticos, a saber: Lunes a Sábado de 11pm a 6am; domingo y feriados de 7pm a 6am.
+                                En caso de requerirse un mantenimiento que requiera mucho tiempo, este se realizará en lo posible los días domingos o feriados a partir del mediodía. De igual forma, EL PROVEEDOR procurará razonablemente informar a sus
+                                CLIENTES con 48 horas de anticipación sobre los horarios que efectivamente se utilizarán para dar mantenimiento planeado a la Plataforma. <br> 3.3. Mantenimiento no-planeado: Con el propósito de garantizar la integridad
+                                y seguridad del Software, EL PROVEEDOR tendrá el derecho de desplegar mantenimientos no planeados cada vez que lo estime necesario y con la frecuencia que estime necesaria. EL PROVEEDOR procurará avisar a sus CLIENTES con
+                                la mayor anticipación permitida por la situación sobre dichos mantenimientos, los cuales podrán ocurrir sin limitaciones de horario y, debido a los inconvenientes que pretenden solventar (por ejemplo, la aplicación de un
+                                parche de seguridad recientemtne publicado por una de las casas globales de infraestructura de software), de manera imprevista y no avisada.
+
+                            </p>
+                            <p>
+                                4. Servicios de soporte al CLIENTE final: <br> Ayudas e instructivos en línea para la utilización del Software: Como parte del Servicio, EL PROVEEDOR facilitará al CLIENTE documentación de apoyo, videos instructivos y otras
+                                ayudas en línea a través de su Portal de Clientes, dentro del aplicativo denominado “YO TRANSPORTO”. Adicionalmente, EL PROVEEDOR ofrecerá clases gratuitas en línea, con la frecuencia que estime conveniente, para capacitar
+                                al CLIENTE en la utilización del Software. Utilizar el material instructivo en línea, como también atender los seminarios en línea, no tendrá un costo adicional para el CLIENTE. El PROVEEDOR ofrece en todos sus planes servicio
+                                de soporte personalizado vía CHAT o correo electrónico. Para los servicios de CHAT o correo, el límite de consumo sin costo alguno para cada CLIENTE, donde cada CLIENTE se entiende como una compañía representada por un
+                                único NIT, es de 3 (tres) horas por mes (en total para todos los usuarios de dicho NIT). Si un CLIENTE excede su consumo de servicio de CHAT o CORREO, EL PROVEEDOR tendrá potestad de cobrar, a su discreción y acorde a sus
+                                tarifas comerciales vigentes, por las horas de servicio al cliente adicionales prestadas durante dicho mes, previa aceptación del deseo del CLIENTE de recibir este servicio adicional. En caso de que el CLIENTE no desee
+                                recibir dicho servicio adicional, el PROVEEDOR se reservará el derecho de suspender el servicio de chat, correo u otro tipo de servicios de atención personalizada durante el mes en cuestión, servicios éstos que se reanudarán
+                                al siguiente mes por las mismas 3 (tres) horas mensuales incluidas en los planes. Se hace claridad que todo CLIENTE podrá continuar utilizando las herramientas de autogestión de la plataforma, como los son los videos e
+                                instructivos presentes en el portal de ayuda en línea (“YO TRANSPORTO”), de manera ilimitada.
+                                <br> 4.1. Soporte telefónico: EL PROVEEDOR podrá ofrecer Servicios de soporte telefónico para la atención de preguntas de los Usuarios Finales. Dicho Servicio será facturado al CLIENTE por aparte, y no está incluido en
+                                el pago efectuado por el CLIENTE en contraprestación del derecho de uso de la Aplicación. EL PROVEEDOR se reserva el derecho a crear paquetes comerciales con diferentes costos y niveles de soporte telefónico, y de modificar
+                                los mismos en el tiempo sin previo aviso. <br> 4.2. Soporte presencial: EL PROVEEDOR podrá ofrecer Servicios de soporte presencial en aquellas ciudades donde el volumen de clientes lo haga económicamente viable. Este soporte
+                                será facturado por aparte, y no está incluido en el pago que efectúa el CLIENTE en contraprestación del derecho de uso de la Plataforma. EL PROVEEDOR se reserva el derecho a crear paquetes comerciales con diferentes niveles
+                                y ofertas de soporte presencial. En casos en que el CLIENTE requiera soporte presencial en ciudades donde EL PROVEEDOR no tenga una presencia local de Ingenieros de Soporte, el CLIENTE asumirá los costos de viaje incurridos
+                                en la prestación de dicho servicio. El servicio presencial en áreas donde EL PROVEEDOR no tenga presencia permanente no estará garantizado y será prestado bajo una modalidad de mejor esfuerzo, a no ser que medie compromiso
+                                escrito entre las partes especificando otros términos.
+                            </p>
+                            <p>
+                                5. Confidencialidad:
+                                <br> 5.1. Criterios generales referentes a la Información Confidencial: Para propósitos de éste Acuerdo, el término “Información Confidencial” incluye: a) los términos de este Acuerdo mismo; b) los datos personales del
+                                CLIENTE y los de terceros proporcionados por el CLIENTE con la debida autorización; c) la tecnología propietaria del PROVEEDOR expresada en cualquier medio lógico o físico; d) los procesos de negocio según se encuentran
+                                implementados en la tecnología del PROVEEDOR; e) los diseños de las herramientas del PROVEEDOR; f) los incidentes que se puedan presentar entre las Partes, incluyendo cualquier error, defecto, problema de seguridad u otro
+                                tipo de problema en relación con el Servicio y; g) todas las comunicaciones generadas entre las Partes referentes al Servicio en cuestión; h) y toda aquella información que al momento de su entrega sea explícitamente identificada
+                                como “Confidencial” por la Parte que la revela.
+                                <br> 5.2. Exclusiones de la Información Confidencial: Sin perjuicio de lo anterior, la información confidencial no incluye: a) información de dominio público; b) información generalmente conocida en la industria previamente
+                                a que ésta haya sido revelada por la Parte; c) información que haya sido revelada públicamente por un tercero que contaba con el pleno derecho de hacerlo sin infringir un Acuerdo de Confidencialidad con cualquiera de las
+                                Partes; d) la información que se compone de datos agregados y resumidos referentes al uso de los productos de EL PROVEEDOR, que no contiene información desglosada o identificable como proveniente de ningún CLIENTE en particular.
+                                <br> 5.3. Acuerdos de manejo mutuo de la Información Confidencial: Cada Parte acuerda: a) mantener confidencial la Información Confidencial de la otra parte; b) no divulgar Información Confidencial excepto cuando la otra
+                                parte expresamente lo requiera y permita, o cuando lo exija una orden judicial de una autoridad competente; c) proteger la Información Confidencial que le fue confiada de la misma manera y bajo las mismas exigencias que
+                                protege su propia Información Confidencial. <br> 5.4. Manejo de los datos del CLIENTE: EL CLIENTE acepta y es plenamente consciente de que para poder operar el Servicio, el PROVEEDOR debe escribir, leer, generar copias
+                                de seguridad, transferir entre servidores en la nube o albergar en servidores en la nube, compilar, transformar, encriptar y, en general, operar técnicamente con la Información Confidencial y los datos personales que el
+                                CLIENTE ingresa en la Aplicación, bien sea que dichos datos hagan referencia a información personal del CLIENTE, o de terceros con quienes el CLIENTE tiene una relación comercial gestionada a través de la plataforma. Dicha
+                                información incluye, pero no se limita a: información financiera, información logística, datos contables, datos referentes a proveedores, datos referentes a distribuidores, datos referentes a clientes o prospectos del CLIENTE,
+                                datos referentes a precios de compra y a precios de venta, datos financieros y reportes gerenciales, entre otros. Dentro de este contexto, EL PROVEEDOR se compromete a proveer una infraestructura en la nube segura y robusta,
+                                dentro de términos generalmente aceptados en la industria, para operar y salvaguardar los Datos del CLIENTE. El CLIENTE acepta la responsabilidad de obtener las autorizaciones de terceros para el suministro de los datos
+                                mencionados en ésta cláusula al PROVEEDOR y su utilización para los fines de este contrato. EL CLIENTE acepta que el PROVEEDOR defina, a su mejor criterio, el tipo de infraesructura en la nube donde ubicará los servicios
+                                de infraestructura necesarios para prestar el servicio y almacenar en ellos toda la información. En particular, el cliente acepta que los datos que el CLIENTE ingresa en la aplicación, bien sea propios o de los terceros
+                                naturales o jurídicos con los cuales el CLIENTE hace negocios a través de la plataforma, sean albergados en servidores en la nube localizados en los Estados Unidos de América o en Colombia. EL PROVEEDOR garantizará que
+                                la elección del proveedor de infraestructura en la nube se hará luego de un juicioso ejercicio donde se propenda por un manejo de datos responsable y seguro, según tecnologías modernas y prácticas profesionalmente aceptadas
+                                en la industria. <br> 5.5. Privacidad respecto a la información del CLIENTE: Todos los datos ingresados por el CLIENTE en la Aplicación serán propiedad exclusiva del CLIENTE. La Política de tratamiento de datos personales
+                                del CLIENTE está contenida en el documento con idéntico nombre que se anexa dentro de la aplicación.
+                                <br> 5.6. Entrega de información a entidades judiciales: En los casos excepcionales en los que una entidad judicial, debidamente autorizada según los criterios de la normatividad Colombiana, requiera que el PROVEEDOR entregue
+                                información referente a los Datos del Cliente a un órgano judicial o administrativo, en estos casos, el PROVEEDOR procurará informar al CLIENTE con la mayor anticipación posible del requerimiento jurídico, para que este
+                                pueda establecer las acciones legales correspondientes a defender sus derechos a la privacidad de su información, hasta donde la ley se lo permita. Sin embargo, es claro que el PROVEEDOR, una vez cumplidos todos los plazos
+                                y una vez entabladas por el CLIENTE todas las defensas a las que tenga derecho, respetará toda orden judicial que lo obligue a compartir parcial o totalmente información referente a Datos del Cliente, so pena de incurrir
+                                en un delito o multa por no hacerlo.
+                                <br> 5.7. Resguardo de la información del CLIENTE: Toda la información del CLIENTE reposará en servidores en la nube operados por empresas generalmente reconocidas como de primera categoría en el mercado nacional o internacional
+                                (en particular , como se menciona expresamente en el numeral 5.4, puede reposar en empresas de servicios en la nube asentadas en los Estados Unidos de América). EL CLIENTE reconoce que EL PROVEEDOR, como parte de sus políticas
+                                de protección de la información, generará copias periódicas de los datos del CLIENTE. Dichas copias serán borradas semanalmente, generando espacio en el servidor para la generación de las siguientes copias más actuales.
+                                Más allá de lo contenido en la Política de Tratamiento de Datos que se anexa a este documento, será responsabilidad exclusiva del CLIENTE resguardar su información, a través de descargas en la misma de la Aplicación, en
+                                cualquier momento mediante las utilidades que se proveerán para tal fin. La información que podrá ser descargada del software por parte de un usuario debidamente autorizado por EL CLIENTE se encuentra especificada en el
+                                Anexo 1 de este documento.
+                                <br> 5.8. Apoyo en la resolución de incidentes informáticos que puedan afectar la Información Confidencial: EL CLIENTE es consciente de que aún bajo parámetros de seguridad comúnmente aceptados, la información que viaja
+                                en la operación diaria del Software puede llegar a ser víctima de “hackers” o de ataques informáticos, en los que ella puede ser interceptada, corrompida o copiada. EL PROVEEDOR no será responsable por información que se
+                                pierda o sea dañada mientras transite por redes locales o públicas por fuera de su control directo. Sin embargo, de existir una brecha de información o un ataque informático, EL PROVEEDOR se compromete a desplegar sus mejores
+                                esfuerzos para reparar la situación con máxima urgencia, y espera contar con el apoyo de LOS CLIENTES para identificar y resolver este tipo de situaciones a la mayor brevedad.
+                            </p>
+                            <p>
+                                6. Periodo de vigencia: <br> Este Acuerdo se inicia en la fecha y hora en que el CLIENTE firma O acepta las condiciones de este documento en la web, queriendo esto decir que acepta todos los términos y condiciones del mismo
+                                de acuerdo a la costumbre mercantil certificada por la Cámara de Comercio de Sincelejo en ese sentido y la cual las partes aceptan como vinculante para los efectos de ejecución de este Acuerdo. <br> La duración de este
+                                Acuerdo será de un mes contado a partir de la fecha y la hora en la que el CLIENTE lo firme o acepte electrónicamente en la página WEB y se renovará automáticamente por periodos mensuales a no ser que una de las partes
+                                notifique a la otra con al menos 15 días de anticipación de su intención de dar por terminado el Acuerdo sin que sea necesario motivar esa decisión ni se generé ningún tipo de responsabilidad. En caso de que se haya negociado
+                                una duración mínima, ésta deberá ser cumplida por el CLIENTE. <br> En el caso en el que el CLIENTE sea quien decida dar por terminado el Acuerdo no habrá lugar a ningún tipo de indemnización o compensación a su favor referente
+                                al pago o los pagos que hubiera efectuado previamente. <br> El CLIENTE no podrá reclamar al PROVEEDOR ningún tipo de indemnización o compensación en caso de que por su voluntad decida dejar de utilizar el Servicio pagado.
+                                <br> El CLIENTE reconoce y acepta expresamente que el PROVEEDOR puede suspender o modificar la prestación del Servicio mensualmente, por lo que se obliga a consultar mensualmente la versión más actualizada del Acuerdo para
+                                conocer los Términos y Condiciones del mismo, los cuales podrán ser actualizados por el PROVEEDOR en cualquier momento. <br> Cada una de las renovaciones del presente Acuerdo quedará sujeta a los Términos y Condiciones
+                                de la versión del Acuerdo en ese momento. <br> El PROVEEDOR, en el giro ordinario de sus negocios y dependiendo del éxito del Servicio podrá tomar la decisión de suspender el Servicio en la siguiente mensualidad sin que
+                                sea necesario que ello se informe previamente al CLIENTE ni que el PROVEEDOR se vea obligado a seguir prestando el Servicio durante la siguiente mensualidad de ninguna manera.
+                            </p>
+                            <p>
+                                7. Causales de cancelación del contrato:
+                                <br> 7.1. Cancelación por parte del CLIENTE: A no ser que la negociación específica con el CLIENTE acuerde una cláusula mínima de permanencia (la cual quedará explícita en el plan comercial que el cliente acepte), EL CLIENTE
+                                podrá cancelar este acuerdo con EL PROVEEDOR en cualquier momento. Los dineros adeudados a la fecha al PROVEEDOR deberán ser cancelados en su totalidad en la fecha de corte más próxima al momento de la cancelación, so pena
+                                de que el CLIENTE incurra en intereses de mora y, de no concretar el pago de lo debido, EL PROVEEDOR podrá iniciar un proceso de cobro jurídico y de ser necesario podrá realizar el reporte de la mora en las centrales de
+                                riesgo, dentro de los procedimientos estipulados por la ley colombiana para tal fin. <br> 7.2. Notificación de cancelación por parte del PROVEEDOR: EL PROVEEDOR podrá cancelar de manera unilateral, en cualquier momento,
+                                el Servicio ofrecido al CLIENTE y delimitado en éste Acuerdo, siempre y cuando notifique al CLIENTE de la cancelación del mismo con 15 días de anticipación al momento de cancelación. <br> 7.3. Causales de cancelación inmediata:
+                                EL PROVEEDOR podrá suspender o cancelar de forma inmediata cualquier Cuenta de Usuario final, o grupo de Cuentas de Usuario final, como respuesta a una infracción de los términos de uso especificados en este Acuerdo. Adicionalmente,
+                                son causales de terminación inmediata: la sospecha razonable de que un CLIENTE está atentando contra la seguridad informática del sistema; el mal uso de las políticas de licenciamiento de los Servicios objeto de este acuerdo;
+                                la sospecha razonable de que el CLIENTE está haciendo mal uso o está involucrado en la copia indebida de Propiedad Intelectual inherente al Servicio; la incorporación del CLIENTE o alguno de los socios de la empresa del
+                                CLIENTE en la “lista CLINTON” (oficialmente llamada “Specially Designated Narcotics Traffickers”) o en otras listas similares; un fallo negativo hacia el CLIENTE judicial o fiscal que implique consecuencias penales en Colombia.
+                                <br>7.4. Restablecimiento del Servicio luego de su cancelación: Un Servicio cancelado podrá ser reestablecido, a plena discreción del PROVEEDOR, cuando la falta que causó la cancelación sea corregida por EL CLIENTE a satisfacción
+                                del PROVEEDOR. En caso de que EL PROVEEDOR considere que la causal por la cual se suspendió el Servicio fue grave, el PROVEEDOR se reserva el derecho a no renovar dicho Servicio al CLIENTE total o parcialmente, ahora o
+                                en cualquier momento en el futuro. <br> 7.5. Acceso a Datos del Cliente luego de efectuada una cancelación del Servicio: Luego de efectuada una suspensión, y por treinta (30) días calendario luego de cancelado el Servicio,
+                                EL CLIENTE tendrá acceso a sus propios datos almacenados en ejecución del Servicio, pudiendo descargar la información residente en el Software a través de las herramientas que EL PROVEEDOR dispondrá para tal fin. Una vez
+                                culminados los 30 días luego de cancelado el Servicio, EL PROVEEDOR procederá a borrar la información de Datos del Cliente que reposa en sus servidores, debido a que la misma es considerada información confidencial propiedad
+                                del CLIENTE y no de EL PROVEEDOR. El CLIENTE puede solicitar al PROVEEDOR un certificado que demuestre que su información fue eliminada y borrada.
+                            </p>
+                            <p>
+                                8. Propiedad intelectual:
+                                <br> 8.1. EL CLIENTE reconoce que los productos (incluyendo metodologías, conceptos y técnicas utilizadas) son productos comerciales con valor de cambio, propiedad de EL PROVEEDOR y/o sus licenciatarios o socios de negocio,
+                                y acuerda tratarlos como confidenciales. EL CLIENTE se compromete a cuidar que los derechos de autor de EL PROVEEDOR o sus LICENCIATARIOS sobre el Software objeto de este Acuerdo, y sobre la documentación o contenidos que
+                                lo acompañan, no sean violados por el CLIENTE, su personal o por terceros relacionados con la operación del Software. Igualmente, EL CLIENTE se compromete a comunicar a EL PROVEEDOR de las violaciones a los derechos de
+                                autor sobre las cuales EL CLIENTE lleguen a tener conocimiento. <br> 8.2. Acorde a lo anterior, El CLIENTE no podrá autorizar ni autorizará a ninguna parte a: (i) transferir, vender, arrendar, sindicar, prestar, ni utilizar
+                                para alianzas de marca, actividades compartidas, para ofrecer Servicios informáticos gratuitos, o para desplegar en otros fines no autorizados en este Acuerdo; (ii) modificar, adaptar, traducir, preparar trabajos derivados,
+                                descompilar, realizar ingeniería inversa, desmontar o intentar obtener de algún otro modo el código fuente de algún Servicio o de otra tecnología, contenido, dato, rutina, algoritmo, método, funcionalidad, diseño, técnica
+                                de interfaz de usuario, Software, material y documentación de EL PROVEEDOR; (iii) eliminar, desfigurar, ocultar o modificar el aviso de derechos de autor, las marcas comerciales u otros avisos sobre los derechos de propiedad
+                                de EL PROVEEDOR facilitados como parte del Servicio.
+                                <br> 8.3. Aparte de los derechos enumerados y limitados en el presente Acuerdo, los derechos de uso a los que accede EL CLIENTE a través del Pago por la utilización del Servicio, no incluyen el derecho del CLIENTE a involucrarse
+                                en actividades de prestación de Servicio o licenciamiento, con respecto a ítems que son propiedad intelectual de EL PROVEEDOR o sus licenciatarios. En esta misma línea, este Acuerdo no concede al CLIENTE ningún derecho
+                                de propiedad, título o interés sobre los Servicios, Productos, o marcas del PROVEEDOR o sus Licenciatarios o Socios de Negocio. Los productos, sus marcas, derechos de copia y secretos comerciales, permanecen de cualquier
+                                forma de propiedad de EL PROVEEDOR o sus licenciatarios o socios de negocio.
+                                <br> 8.4. EL PROVEEDOR mantendrá la propiedad de todo derecho, título e interés incluidos, sin limitaciones, todos los Derechos de propiedad intelectual relacionados con el Servicio, así como de cualquier trabajo o mejora
+                                derivados de este, incluyendo, sin limitaciones, cualquier Software, tecnología, información, contenido, concepto de negocio, material, directrices y documentación. No obstante, EL PROVEEDOR no es propietario de los Datos
+                                Personales del Cliente. <br> 8.5. El CLIENTE no adquirirá ningún derecho, título o interés contenido, exceptuando los derechos de uso limitado establecidos de forma expresa en el presente Acuerdo. Todo derecho que no se
+                                conceda expresamente en este documento se considerará retenido por EL PROVEEDOR. <br> 8.6. Cualquier código fuente o binario de terceros incluido en cada una de las aplicaciones del Servicio sólo podrá utilizarse conjuntamente
+                                con dicha Aplicación del Servicio, cuyo uso estará sujeto a los términos y condiciones del presente Acuerdo.
+                            </p>
+                            <p>
+                                9. Limitación de responsabilidad: <br> 9.1. Toda la información, materiales, o Software que EL PROVEEDOR suministra o deja accesible al CLIENTE bajo este Acuerdo se suministra “tal como está”, sin obligación alguna respecto
+                                a garantía, custodia, entrenamiento, mantenimiento, o Servicios por parte del PROVEEDOR, salvo por lo que se indica expresamente en este Acuerdo. <br> 9.2. El PROVEEDOR no da garantía alguna, de ningún tipo, ni expresa
+                                ni implícita, sobre al desempeño del Software para un fin específico ni garantiza que no se presenten errores en el mismo durante su operación. <br> 9.3. El PROVEEDOR no da garantía sobre el tiempo de disponibilidad de
+                                la Aplicación o el tiempo en el que la aplicación se encuentra “online” por cuanto la naturaleza de la prestación del Servicio hace que sea imposible que el Servicio se pueda prestar de manera adecuada en todo momento de
+                                manera indefinida. En consecuencia, el CLIENTE reconoce y acepta estas circunstancias en contraprestación a la declaración del PROVEEDOR de que realizará los mayores esfuerzos posibles para que la aplicación funcione correctamente
+                                la mayor cantidad de tiempo posible. <br> 9.4. El CLIENTE reconoce y acepta expresamente que exime de todo tipo de responsabilidad al PROVEEDOR en relación con el buen funcionamiento del Software o su disponibilidad e incluso
+                                en el caso de que estas disposiciones fueran ineficaces, aun así las Partes acuerdan que la responsabilidad del PROVEEDOR relacionada con la ejecución de este contrato será la mínima posible. <br> 9.5. Bajo ninguna circunstancia,
+                                el proveedor se responsabilizará frente al cliente o a terceros por de daños indirectos, especiales, imprevistos, daños por lucro cesante, daños por brazos caidos, daños derivados o punitivos, incluidos, sin limitaciones,
+                                los daños causados por la pérdida de datos, la pérdida de beneficios, la pérdidad de ventas, la pérdida de ingresos o gastos del abastecimiento de bienes o servicios, sea cual sea su causa, y bajo ninguna teoría de responsabilidad.
+                                <br> 9.6. Lo anterior incluye, sin limitaciones, contratos o agravios (incluidos la responsabilidad hacia el producto, la responsabilidad estricta y la negligencia) e independientemente de si el cliente tenía o debería
+                                haber tenido conocimiento o haber sido advertido de la posibilidad de estos daños, y al margen de si cualquier remedio especificado en el presente acuerdo no cumpliera su finalidad esencial. <br> 9.7. La responsabilidad
+                                de el proveedor o de sus socios comerciales en éste emprésito, ante cualquier reclamación derivada del presente acuerdo, (al sumarse con la responsabilidad del proveedor por todas las demás reclamaciones derivadas de este
+                                acuerdo) en ningún caso superará la cantidad neta que el proveedor haya recibido y conservado en virtud del acuerdo durante los seis (6) meses inmediatamente anteriores a la fecha en la que se produzca dicha reclamación.
+                                <br> 9.8. l cliente reconoce que de no existir una limitación de responsabilidad, la tarifa o monto a pagar por el uso del servicio sería significativamente mayor, puesto que la misma tendría que cubrir los riesgos inherentes
+                                a una operación expuesta a litigios de monto indeterminado e incalculable a priori.
+                            </p>
+                            <p>
+
+                                10. VALOR DEL CONTRATO: <br> EL CLIENTE pagará a EL PROVEEDOR por la ejecución del presente contrato la suma neta de unas comisiones que se cobrará por las ventas concretadas en el software de un 15% sobre las ventas del
+                                servicio. También si el cliente quiere tener sus propias publicaciones se ofrece una Suscripción Paquete seguro por medio de una empresa, por: $200.000 pesos mensual, Opcional y se debe declarar en un correo. EL PROVEEDOR
+                                cobrara adicional de ser el caso el Costo de notificación pedido exitoso (sms o push): $400 a 500 pesos cada pedido de usarse este servicio por medio de la plataforma. Los demás gravámenes que cause el presente contrato,
+                                tales como publicación especial, serán cubiertos por EL CLIENTE en su totalidad, precio pactado en su momento por mutuo acuerdo, salvo que EL PROVEEDOR no informara, y aceptaran por correo los términos, no se cobrara la
+                                campaña adicional.
+                            </p>
+                            <p>
+                                11. FORMA DE PAGO:
+                                <br> EL CLIENTE pagará el quince por ciento (15%) del valor total de los servicios realizadas, al finalizar el mes, a manera de usado el servicio. 100% que se cancelará de los servicios adicionales usados durante el mes
+                                servicios acordaron en el periodo (Previo cumplimiento de las condiciones pactadas en los criterios de aceptación) mediante el software se le mostrara el valor a pagar por uso o comisiones y se le enviara un correo electrónico
+                                vinculado, con la cuenta de cobro y números de cuentas donde pueden hacer el pago de los servicios y comisiones. El pago siempre será efectuado a cuentas relacionadas a la empresa SUMMERGT S.A.S, identificada con NIT 901357616-8.
+                            </p>
+                            <p>
+                                12. Limitación de responsabilidad referente a impuestos y obligaciones fiscales de los CLIENTES: <br> Dentro del contexto de la utilización del Servicio para la gestión de su negocio, EL CLIENTE se hace único responsable
+                                de la cancelación y manejo de los impuestos que adeude al fisco, incluidos los impuestos por ventas, uso, propiedad personal, consumo, aduanas, derechos de importación o timbre, IVA, ICA, u otros impuestos y obligaciones
+                                provenientes de las agencias gubernamentales de cualquier tipo dentro del Territorio, y aplicables a todas las transacciones realizadas a través del Servicio. <br> EL PROVEEDOR reconoce, y EL CLIENTE acepta, que el hecho
+                                de que el PROVEEDOR provea un Servicio y una Plataforma para que el CLIENTE realice la gestión de su negocio, de ninguna manera implica que el PROVEEDOR tenga inherencia o tenga responsabilidad alguna sobre la forma como
+                                EL CLIENTE utilice dicho medio para operar, documentar, o en general soportar sus obligaciones contables, tributarias, o laborales, en lo que respecta al cumplimiento de las disposiciones legales del Territorio. Por tal
+                                motivo, EL CLIENTE libera a EL PROVEEDOR expresamente de toda responsabilidad, sin limitaciones, derivada de pleitos o litigios fiscales dirigidos contra el CLIENTE, por el manejo que EL CLIENTE haya dado a sus obligaciones
+                                tributarias al utilizar el Software dentro del Territorio. <br> Igualmente, EL PROVEEDOR manifiesta que la información que EL CLIENTE genere en el Software, por ser de carácter confidencial, no será accedida por EL PROVEEDOR,
+                                a no ser que medie autorización expresa del CLIENTE, y a no ser que exista a su vez un inconveniente netamente técnico que deba ser solucionado a través de dicho acceso. Aun en estos casos, EL PROVEEDOR trabajará exclusivamente
+                                sobre aquellos datos específicos que requieran una intervención técnica puntual, motivo por el cual, bajo ningún escenario, tendrá EL PROVEEDOR conocimiento, ni será responsable, por la forma como EL CLIENTE decida operar
+                                su negocio, por la forma como EL CLIENTE decida contabilizar sus transacciones, o por la forma como EL CLIENTE autónomamente decida dar cumplimiento a las disposiciones fiscales y legales dentro del Territorio. BAJO NINGUNA
+                                CIRCUNSTANCIA, NI SIQUIERA MEDIANDO LA SOLICITUD EXPRESA DEL CLIENTE, PODRÁ EL PROVEEDOR ALTERAR DATOS FINANCIEROS, CONTABLES O FISCALES, REFERENTES A LOS DATOS DEL CLIENTE.
+                            </p>
+                            <p>
+                                13. Mora y no pago: <br> 13.1. Independientemente del uso que le esté dando a la solución, EL CLIENTE deberá pagar la cuota mensual o importe acordado con EL PROVEEDOR como pago del Servicio, en su respectiva fecha de corte;
+                                fecha que será informada al momento de la compra o negociación con EL PROVEEDOR o que si no es informada explícitamente, se entiende como el día de suscripción del servicio y subsiguientemente cada 30 días a partir de esa
+                                fecha. El valor del servicio será el acordado por las partes a través de la suscripción que el CLIENTE elija en la página web en la que el CLIENTE suscribió el servicio de la aplicación (hoy por hoy: www.pidoymerco.com),
+                                o en su defecto, será aquel que se diga en una propuesta específica hecha por el PROVEEDOR al CLIENTE, cuando esta última exista. Si EL CLIENTE no ha realizado el pago para esa fecha respectiva, o si el medio de pago que
+                                EL CLIENTE facilitó no posee fondos (en el caso de débitos o pagos automáticos), EL PROVEEDOR tendrá derecho a congelar el Servicio al CLIENTE pasados 5 días calendario después de sucedida la fecha de corte. Durante la
+                                congelación del servicio, el CLIENTE ni ninguno de los Usuarios asignados al CLIENTE podrá acceder a la aplicación. <br> 13.2. Las tarifas impagadas devengarán un interés equivalente a la mora permitida por la ley, el cual
+                                será liquidado diariamente. <br> 13.3. El Servicio otorgado por EL PROVEEDOR será reestablecido al CLIENTE una vez este último complete en su totalidad el pago adeudado, incluyendo los intereses de mora respectivos. En
+                                caso de que EL CLIENTE permanezca en mora por más de 30 días calendario, EL PROVEEDOR tendrá derecho a cancelar la prestación del Servicio a EL CLIENTE en su totalidad. Una vez suspendido el Servicio, EL CLIENTE contará
+                                con un periodo de quince (15) días calendario para extraer una copia de su información y guardarla. Pasados los quince (15) días, EL PROVEEDOR procederá a eliminar la información del CLIENTE, puesto que ésta pertenece al
+                                CLIENTE. El procedimiento mencionado anteriormente es aceptado expresamente por EL CLIENTE y forma parte integral de éste acuerdo.
+                            </p>
+                            <p>
+                                14. Resolución de diferencias o reclamaciones:
+                                <br> De surgir cualquier reclamación que tenga su origen en lo que se relacione con el presente Acuerdo, las partes se comprometen a tener, como mínimo, una conversación telefónica personalmente atendida por sus Representantes
+                                Legales, para tratar de resolver amigablemente la diferencia. <br> En caso de que en el foro anterior las partes no lleguen a un acuerdo mutuamente satisfactorio, el diferendo o reclamación deberá ser resuelta mediante
+                                arbitraje de derecho en la ciudad de Sincelejo, Sucre, Colombia, de acuerdo con el Reglamento del Centro de Arbitraje y Conciliación de la Cámara de Comercio de Sincelejo.
+                                <br> Las citaciones y notificaciones que se produzcan en el procedimiento se harán, para El PROVEEDOR, a nombre de Representante Legal de SUMMERGT S.A.S., en la Carrera 20 # 18 – 43, Segundo Piso Sincelejo - Sucre, Colombia,
+                                Colombia, y para EL CLIENTE en la dirección que éste ha registrado electrónicamente al suscribirse al Servicio. El idioma que se utilizará en el procedimiento arbitral será el castellano.
+                                <br> El arbitraje será conducido por un panel de tres árbitros, de los cuales cada una de las partes designará a uno de ellos y el tercero, quien presidirá el Tribunal de árbitros, será elegido mediante acuerdo de los árbitros
+                                designados por las partes. En caso una de las partes no designe a su árbitro, dentro de un plazo de diez (10) días calendario, contados desde la fecha en que una de ellas manifieste por escrito su voluntad de acogerse a
+                                la presente cláusula, el árbitro que no haya sido designado, será nombrado por el Centro de Arbitraje y Conciliación de la Cámara de Comercio de Sincelejo.
+                                <br> El Tribunal Arbitral tendrá un plazo de treinta (30) días desde su instalación para expedir el respectivo laudo arbitral, el cual será inapelable. Asimismo, el Tribunal Arbitral puede quedar encargado de determinar
+                                con precisión la controversia, así como otorgar una prórroga en caso fuese necesario para emitir el laudo. Los gastos y costos correspondientes al arbitraje serán asumidos por la parte que designe el Tribunal en su laudo
+                                final. <br> Para cualquier intervención de los jueces y tribunales ordinarios dentro de la mecánica arbitral, y exclusivamente para tales efectos, las partes se someten expresamente a la jurisdicción de los jueces y tribunales
+                                de Sincelejo, Colombia, renunciando al fuero de sus domicilios.
+                            </p>
+                            <p>
+                                15. Supervivencia de cláusulas y otras disposiciones:
+                                <br> Si alguna cláusula del presente Acuerdo no se considera válida y se considera inaplicable, será sustituida en la medida de lo posible por otra cuyo significado sea lo más parecido al de la cláusula original. Sin embargo,
+                                la no aplicabilidad de una cláusula no afectará a la validez del resto del Acuerdo, el cual seguirá siendo válido y aplicable en virtud de sus términos.
+                                <br> Toda corrección o modificación que se realice del Acuerdo deberá (i) publicarse por escrito; (ii) hacer referencia al Acuerdo y (ii) ser comunicada por el PROVEEDOR a través de los medios electrónicos disponibles para
+                                que se encuentre a disposición de los CLIENTES y éstos la acepten electrónicamente. <br> EL PRESENTE ACUERDO CONSTITUYE UNA INTEGRACIÓN COMPLETA DE LOS DISTINTOS PUNTOS ACORDADOS ENTRE LAS PARTES Y REPRESENTA EL ACUERDO
+                                COMPLETO ENTRE EL CLIENTE Y EL PROVEEDOR EN RELACIÓN CON EL SERVICIO Y LOS TÉRMINOS DEL MISMO. LOS TÉRMINOS Y CONDICIONES DEL PRESENTE ACUERDO TENDRÁN PRIORIDAD ANTE CUALQUIER PEDIDO DE COMPRA, CUALQUIER MATERIAL ENCONTRADO
+                                EN UN SITIO WEB RELACIONADO CON EL OBJETO DEL PRESENTE ACUERDO U OTRO DOCUMENTO, SEA ÉSTE O NO FORMALMENTE REFRENDADO POR EL PROVEEDOR, POR LO QUE CUALQUIER TÉRMINO EN CONFLICTO, INCOHERENTE O ADICIONAL QUE CONTENGA DICHO
+                                MATERIAL EXTERNO A ÉSTE ACUERDO SERÁ CONSIDERADO NULO.
+                            </p>
+                            <p>
+                                16. Totalidad del acuerdo: <br> Este Acuerdo constituye la totalidad del acuerdo entre las Partes y sustituye todos los acuerdos, contratos, declaraciones, manifestaciones, promesas, información, arreglos y entendimientos,
+                                ya sean verbales o escritos, expresos o implícitos, entre las Partes en relación con el objeto de este Acuerdo. <br> NOTA: Si usted ya firmó el contrato digitalmente no tiene que diligenciar las firmas físicas. De lo contrario,
+                                por favor diligencie las firmas abajo: <br>
+
+                                <br> Por EL CLIENTE: <br><br> Firma: <br> Nombre: <br> Cc: <br> Fecha:
+                                <br>
+                            </p>
+                            <p>
+                                Al firmar este documento El CLIENTE autoriza a PSL a tratar sus datos personales, o los de terceros que haya suministrado según el contrato, de acuerdo a la política de tratamiento de datos personales contenida en la web, del Acuerdo de Prestación de
+                                Servicios de Software de Gestión Empresarial vía Web. Adicionalmente, al firmar este documento, EL CLIENTE autoriza a SUMMERGT a albergar los datos personales que persisten en la aplicación en servidores en la nube localizados
+                                en los Estados Unidos de América.
+                            </p>
+                            <p>
+                                Requisitos para ser parte de YO TRANSPORTO<br> Transportadores: <br> 1. Crear una cuenta con todos tus datos (nombre completo, cedula, correo, teléfono, dirección, contraseña) *<br> • Cedula de ciudadania. • Pase de conducir
+                                opcional • Fotos del vehículo. 2. Fotos según las siguientes resoluciones: <br> • Logo: 128x128 px mínimo y máximo 250x250 formato PNG o JPG | relación aspecto 1:1* • Productos: 640x928px máximo formato PNG o JPG | relación
+                                aspecto 16:9* 3. Certificado de protocolo de bioseguridad implementado opcional<br> 4. Tarjeta de propiedad del vehiculo si aplica*<br> 5. SOAT del vehiculo opcional<br> Copia de acuerdo de uso de la plataforma YO TRANSPORTO</p>
+
+
+
+                        </ion-text>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-item lines="none">
+                            <ion-label>Acepto</ion-label>
+                            <ion-checkbox slot="start" mode="ios" #terminos></ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6">
+                        <ion-chip (click)="continuar('2')">
+                            <ion-icon name="list-circle"></ion-icon>
+                            <ion-label>Volver</ion-label>
+                        </ion-chip>
+                    </ion-col>
+
+                    <!--  <ion-col size="6">
+                        <ion-chip (click)="fotosVehiculo()">
+                            <ion-label>Fotos Vehiculo</ion-label>
+                            <ion-icon name="caret-forward-circle"></ion-icon>
+                        </ion-chip>
+                    </ion-col> -->
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+
+        <!-- Fotos Vehiculo -->
+        <ion-slide>
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-label>Rellene los siguientes campos para conocer tu vehiculo</ion-label>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="aling-left">
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="placa" placeholder="Placa del Vehiculo"></ion-input>
+                        <ion-input type="text" [(ngModel)]="modelo" placeholder="Modelo del Vehiculo"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="1"></ion-col>
+                    <ion-col size="2">
+                        <ion-img src="./assets/imagenes/auto (1).png" class="border-1"></ion-img>
+                    </ion-col>
+                    <ion-col size="2">
+                        <ion-img src="./assets/imagenes/auto (2).png" class="border-1"></ion-img>
+                    </ion-col>
+                    <ion-col size="2">
+                        <ion-img src="./assets/imagenes/auto (3).png" class="border-1"></ion-img>
+                    </ion-col>
+                    <ion-col size="2">
+                        <ion-img src="./assets/imagenes/auto (4).png" class="border-1"></ion-img>
+                    </ion-col>
+                    <ion-col size="2">
+                        <ion-img src="./assets/imagenes/auto (5).png" class="border-1"></ion-img>
+                    </ion-col>
+                    <ion-col size="1"></ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-text class="aling-left">
+                            <p>Toma al menos (5) fotos de tu vehiculo en diferentes angulos, una de ellas debe mostrar claramente la placa.
+                            </p>
+                        </ion-text>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6">
+                        <ion-button (click)="camara('1')" shape="round">
+                            <ion-icon slot="start" name="camera"></ion-icon>
+                            Camara
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-button (click)="libreria('1')" shape="round">
+                            <ion-icon slot="start" name="images"></ion-icon>
+                            Galeria
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+
+                <!--  <ion-row>
+                    <ion-col size="12">
+                        <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">
+                    </ion-col>
+                </ion-row> -->
+                <ion-row>
+                    <ion-col size="4" *ngFor="let image of tempImagenes; let i = index">
+                        <ion-card (click)="borrarFoto(image, '1')"><img [src]="image"></ion-card>
+
+
+                    </ion-col>
+
+                </ion-row>
+                <ion-row>
+                    <!-- <ion-col size="6">
+
+                        <ion-chip (click)="acuerdosLegales()">
+                            <ion-icon name="caret-back-circle"></ion-icon>
+                            <ion-label>Acuerdos</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-chip (click)="licencia()">
+                            <ion-label>Licencia</ion-label>
+                            <ion-icon name="caret-forward-circle"></ion-icon>
+                        </ion-chip>
+                    </ion-col> -->
+                    <ion-col size="6">
+                        <ion-chip (click)="continuar('2')">
+                            <ion-icon name="list-circle"></ion-icon>
+                            <ion-label>Volver</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+
+        <!-- Licencia -->
+        <ion-slide>
+            <ion-grid fixed>
+
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-text class="aling-left">
+                            <p>Toma dos fotos de la licencia de conduccion (ambas caras) y registre en el campo 'numero de licencia', el número que aparece en la imagen
+                            </p>
+                        </ion-text>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="NLicencia" placeholder="Número de licencia"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6">
+                        <ion-button (click)="camara('2')" shape="round">
+                            <ion-icon slot="start" name="camera"></ion-icon>
+                            Camara
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-button (click)="libreria('2')" shape="round">
+                            <ion-icon slot="start" name="images"></ion-icon>
+                            Galeria
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4" *ngFor="let image of tempImgLicencia; let i = index">
+                        <ion-card (click)="borrarFoto(image, '2')"><img [src]="image"></ion-card>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <!-- <ion-col size="6">
+
+                        <ion-chip (click)="fotosVehiculo()">
+                            <ion-icon name="caret-back-circle"></ion-icon>
+                            <ion-label>Fotos Vehiculo</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-chip (click)="tarjetaPropiedad()">
+                            <ion-label>T. Propiedad</ion-label>
+                            <ion-icon name="caret-forward-circle"></ion-icon>
+                        </ion-chip>
+                    </ion-col> -->
+                    <ion-col size="6">
+                        <ion-chip (click)="continuar('2')">
+                            <ion-icon name="list-circle"></ion-icon>
+                            <ion-label>Volver</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </ion-slide>
+
+        <!-- Tarjeta propiedad -->
+        <ion-slide>
+            <ion-grid fixed>
+
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-text class="aling-left">
+                            <p>Toma una foto de la Tarjeta de propiedad del vehiculo
+                            </p>
+                        </ion-text>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="NTPropiedad" placeholder="Número de la tarjeta de propiedad"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6">
+                        <ion-button (click)="camara('3')" shape="round">
+                            <ion-icon slot="start" name="camera"></ion-icon>
+                            Camara
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-button (click)="libreria('3')" shape="round">
+                            <ion-icon slot="start" name="images"></ion-icon>
+                            Galeria
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4" *ngFor="let image of tempImgPropiedad; let i = index">
+                        <ion-card (click)="borrarFoto(image, '3')"><img [src]="image"></ion-card>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <!-- <ion-col size="6">
+
+                        <ion-chip (click)="licencia()">
+                            <ion-icon name="caret-back-circle"></ion-icon>
+                            <ion-label>Licencia</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-chip (click)="soat()">
+                            <ion-label>SOAT</ion-label>
+                            <ion-icon name="caret-forward-circle"></ion-icon>
+                        </ion-chip>
+                    </ion-col> -->
+                    <ion-col size="6">
+                        <ion-chip (click)="continuar('2')">
+                            <ion-icon name="list-circle"></ion-icon>
+                            <ion-label>Volver</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </ion-slide>
+
+        <!-- Soat -->
+        <ion-slide>
+            <ion-grid fixed>
+
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-text class="aling-left">
+                            <p>Toma una foto del SOAT
+                            </p>
+                        </ion-text>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="NSoat" placeholder="Número del SOAT"></ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6">
+                        <ion-button (click)="camara('4')" shape="round">
+                            <ion-icon slot="start" name="camera"></ion-icon>
+                            Camara
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-button (click)="libreria('4')" shape="round">
+                            <ion-icon slot="start" name="images"></ion-icon>
+                            Galeria
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4" *ngFor="let image of tempImgSoat; let i = index">
+                        <ion-card (click)="borrarFoto(image, '4')"><img [src]="image"></ion-card>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <!-- <ion-col size="6">
+
+                        <ion-chip (click)="tarjetaPropiedad()">
+                            <ion-icon name="caret-back-circle"></ion-icon>
+                            <ion-label>Fotos Vehiculo</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-chip (click)="simit()">
+                            <ion-label>Simit</ion-label>
+                            <ion-icon name="list-circle"></ion-icon>
+                        </ion-chip>
+                    </ion-col> -->
+                    <ion-col size="6">
+                        <ion-chip (click)="continuar('2')">
+                            <ion-icon name="list-circle"></ion-icon>
+                            <ion-label>Volver</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </ion-slide>
+
+        <!-- Simit -->
+        <ion-slide>
+            <ion-grid fixed>
+
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-text class="aling-left">
+                            <p>Suba una imagen del simit
+                            </p>
+                        </ion-text>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6">
+                        <ion-button (click)="camara('5')" shape="round">
+                            <ion-icon slot="start" name="camera"></ion-icon>
+                            Camara
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-button (click)="libreria('5')" shape="round">
+                            <ion-icon slot="start" name="images"></ion-icon>
+                            Galeria
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4" *ngFor="let image of tempImgSimit; let i = index">
+                        <ion-card (click)="borrarFoto(image, '5')"><img [src]="image"></ion-card>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <!-- <ion-col size="6">
+
+                        <ion-chip (click)="soat()">
+                            <ion-icon name="caret-back-circle"></ion-icon>
+                            <ion-label>Soat</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-chip (click)="continuar(2)">
+                            <ion-label>Volver</ion-label>
+                            <ion-icon name="list-circle"></ion-icon>
+                        </ion-chip>
+                    </ion-col> -->
+                    <ion-col size="6">
+                        <ion-chip (click)="continuar('2')">
+                            <ion-icon name="list-circle"></ion-icon>
+                            <ion-label>Volver</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </ion-slide>
+
+    </ion-slides>
+
+
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="principal()">
+                <ion-icon slot="start" name="backspace"></ion-icon>
+                Cerrar
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

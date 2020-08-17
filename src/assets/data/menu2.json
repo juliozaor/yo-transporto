@@ -1,0 +1,29 @@
+[{
+        "icon": "home",
+        "name": "Home",
+        "redirectTo": "/conductor"
+    },
+    {
+        "icon": "newspaper",
+        "name": "Generar Oferta",
+        "redirectTo": "/generar-oferta"
+    },
+    {
+        "icon": "help-circle",
+        "name": "Ayuda",
+        "redirectTo": "/favoritos"
+    },
+    {
+        "icon": "call",
+        "name": "Soporte",
+        "redirectTo": "/favoritos"
+    },
+    {
+        "icon": "settings",
+        "name": "Configuración",
+        "redirectTo": "/configuracion"
+    }
+
+
+
+]

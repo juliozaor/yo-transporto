@@ -3,7 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyAcHZqyAR2N8ttmyrh_DLPx4HBSIlKfHSM',
+    authDomain: 'yo-transporto-4d4e1.firebaseapp.com',
+    databaseURL: 'https://yo-transporto-4d4e1.firebaseio.com',
+    projectId: 'yo-transporto-4d4e1',
+    storageBucket: 'yo-transporto-4d4e1.appspot.com',
+    messagingSenderId: '856156621973',
+    appId: '1:856156621973:web:506dd1bb1bf464f83f9f9c'
+  },
+   url: 'http://192.168.1.6:3001'
+  // url: 'https://yotransporto.com/api'
+  // url: 'https://serve-yo-transporto.herokuapp.com'
 };
 
 /*

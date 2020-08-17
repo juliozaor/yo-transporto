@@ -1,0 +1,50 @@
+[{
+        "icon": "home",
+        "name": "Inicio",
+        "redirectTo": "/principal"
+    },
+    {
+        "icon": "car-sport",
+        "name": "Interurbano",
+        "redirectTo": "/ofertas-conductor/2"
+    },
+    {
+        "icon": "cart",
+        "name": "Carga",
+        "redirectTo": "/ofertas-conductor/4"
+    },
+    {
+        "icon": "cart",
+        "name": "Domicilios",
+        "redirectTo": "/ofertas-conductor/3"
+    },
+    {
+        "icon": "cart",
+        "name": "Ciudad",
+        "redirectTo": "/ofertas-conductor/1"
+    },
+    {
+        "icon": "reader",
+        "name": "Mis Ofertas",
+        "redirectTo": "/ofertas-pasajero"
+    },
+    {
+        "icon": "help-circle",
+        "name": "Ayuda",
+        "redirectTo": "/favoritos"
+    },
+    {
+        "icon": "call",
+        "name": "comunicarse",
+        "redirectTo": "/favoritos"
+    },
+
+    {
+        "icon": "settings",
+        "name": "Configuración",
+        "redirectTo": "/configuracion"
+    }
+
+
+
+]

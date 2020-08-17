@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar color="#f77708">
+        <ion-buttons slot="start" (click)="toggleMenu()">
+            <!--  <ion-icon slot="icon-only" name="menu"></ion-icon> -->
+
+            <ion-menu-button menu="primerMenu" color="primary"></ion-menu-button>
+
+        </ion-buttons>
+        <ion-title>Ofertas Conductor</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+    <!-- refresh -->
+    <ion-refresher slot="fixed" (ionRefresh)="recargar($event)" pullFactor="0.8" pullMin="60" pullMax="120" #refresh>
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-grid fixed>
+        <ion-row *ngIf="ofertasCompletas">
+            <ion-col size="12">
+                <ion-list *ngFor="let oferta of ofertasCompletas" #lista>
+
+                    <ion-item color="medium" (click)="verOfertaConductor(oferta)">
+
+                        <ion-label>
+                            <h1>Conductor: {{ oferta.usuario.nombre}}</h1>
+                            <p>Origen: {{ oferta.oferta.origen}}</p>
+                            <p>Destino: {{ oferta.oferta.destino}}</p>
+                            <p>Comentarios: {{ oferta.oferta.comentarios}}</p>
+
+                            <p class="ion-text-right">precio: {{ oferta.oferta.tarifa }}</p>
+                        </ion-label>
+
+                    </ion-item>
+
+
+
+
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <!-- infinite scroll -->
+    <ion-infinite-scroll [disabled]="!habilitado" threshold="150px" position="bottom" (ionInfinite)="cargarOfertas($event)">
+        <ion-infinite-scroll-content>
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

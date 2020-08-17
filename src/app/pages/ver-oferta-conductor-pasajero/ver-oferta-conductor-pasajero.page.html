@@ -1,0 +1,180 @@
+<ion-header>
+    <ion-toolbar color="#f77708">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/conductor"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Oferta Pasajero</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid *ngIf="oferta">
+        <ion-row>
+            <ion-col size="12" class="aling-center">
+                <ion-text>
+                    <h3>
+                        <ion-label color="primary">Usuario:</ion-label> {{oferta.usuario.nombre}}
+                    </h3>
+                </ion-text>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="4">
+                <ion-avatar>
+                    <img src="../assets/avatars/{{oferta.usuario.foto}}" />
+                </ion-avatar>
+            </ion-col>
+            <ion-col size="8">
+                <ion-text>
+                    <h3>
+                        <ion-label color="primary">Origen:</ion-label> {{ oferta.oferta.origen }}</h3>
+                    <h3>
+                        <ion-label color="primary">Destino:</ion-label> {{ oferta.oferta.destino }}</h3>
+                </ion-text>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size="6">
+                <ion-text color="primary">
+                    <h3>Tipo de servicio: </h3>
+                </ion-text>
+            </ion-col>
+            <ion-col size="6">
+                <ion-text>
+                    <h4 *ngIf=" oferta.oferta.codTipoServicio  == 1">Ciudad</h4>
+                    <h4 *ngIf=" oferta.oferta.codTipoServicio  == 2">Interurbano</h4>
+                    <h4 *ngIf=" oferta.oferta.codTipoServicio  == 3">Domicilio</h4>
+                    <h4 *ngIf=" oferta.oferta.codTipoServicio  == 4">Mercancia</h4>
+                </ion-text>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf=" oferta.oferta.horaInicial  != null || oferta.oferta.horaFinal  != null">
+            <ion-col size="6">
+                <ion-text color="primary">
+                    <h4>Recoger en el horario: </h4>
+                </ion-text>
+            </ion-col>
+            <ion-col size="6">
+                <ion-text>
+                    <h4>{{ oferta.oferta.horaInicial }} - {{ oferta.oferta.horaFinal }}</h4>
+                </ion-text>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf=" oferta.oferta.fecha  != null">
+            <ion-col size="6">
+                <ion-text color="primary">
+                    <h4>Fecha: </h4>
+
+                </ion-text>
+            </ion-col>
+            <ion-col size="6">
+                <ion-text>
+                    <h4>{{ oferta.oferta.fecha }}</h4>
+
+                </ion-text>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf=" oferta.oferta.aire  != false || oferta.oferta.musica  != false || oferta.oferta.sientos  != false">
+            <ion-col size="6">
+                <ion-text color="primary">
+                    <h3>Requiero: </h3>
+                </ion-text>
+            </ion-col>
+            <ion-col size="6">
+                <ion-text>
+                    <p *ngIf=" oferta.oferta.aire  != false">Aire acondicionado</p>
+                    <p *ngIf=" oferta.oferta.musica  != false">Musica</p>
+                    <p *ngIf=" oferta.oferta.sientos  != false">Asientos para Bebe</p>
+                </ion-text>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf=" oferta.oferta.comentarios  != null">
+            <ion-col size="6">
+                <ion-text color="primary">
+                    <h3>Comentarios: </h3>
+                </ion-text>
+            </ion-col>
+            <ion-col size="6">
+                <ion-text>
+                    <p>{{ oferta.oferta.comentarios }}</p>
+                </ion-text>
+            </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+            <ion-col size="4">
+                <ion-button (click)="chat()" expand="block" shape="round" [disabled]="habilitarChat">
+                    chat
+                </ion-button>
+            </ion-col>
+
+
+            <ion-col size="8" *ngIf="aceptada == false">
+                <ion-text class="color-text">
+                    <h4>Debe esperar que el dueño de la oferta acepte para que se habilite el chat</h4>
+                </ion-text>
+            </ion-col>
+        </ion-row>
+
+
+
+        <ion-row *ngIf="desde == '1'">
+            <ion-col size="12" class="aling-center">
+                <ion-list>
+                    <ion-radio-group [(ngModel)]='valor' name="auto">
+
+                        <ion-item>
+                            <ion-label>Tarifa de la oferta: $ {{ oferta.oferta.tarifa }}</ion-label>
+                            <ion-radio slot="start" value="{{ oferta.oferta.tarifa }}"></ion-radio>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label>contraoferta: $ </ion-label>
+                            <ion-radio slot="start" [(ngModel)]='contraoferta'></ion-radio>
+                            <ion-input type="text" [(ngModel)]='contraoferta' placeholder="Digite su contraoferta"></ion-input>
+                        </ion-item>
+
+
+                    </ion-radio-group>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+
+
+        <ion-row *ngIf="desde == '2'">
+            <ion-col size="12" class="aling-center">
+                <ion-item>
+                    <ion-text color="primary">
+                        <h3>Tarifa de la oferta: $ {{ oferta.oferta.tarifa }}</h3>
+                    </ion-text>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+
+        <ion-row *ngIf="desde == '1'">
+            <ion-col size="12">
+                <ion-button (click)="aceptar()" expand="full" shape="round" [disabled]="habilitarBoton">
+                    Aceptar
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+
+        <ion-row *ngIf="desde == '2'">
+            <ion-col size="12">
+                <ion-button (click)="calificar()" expand="full" shape="round">
+                    Finalizar oferta
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

@@ -1,0 +1,54 @@
+<ion-content class="app-mensajes" id="app-mensajes" #content>
+
+    <ion-grid>
+
+
+        <ion-row *ngFor="let chat of cs.chats">
+            <ion-col size="12" [ngClass]="{ 'aling-right ': usuario.idUsuario == chat.uid }">
+                <ion-chip *ngIf="usuario.idUsuario == chat.uid" color="primary" mode="ios" outline="false">
+                    <ion-label>{{ chat.nombre}}</ion-label>
+                </ion-chip>
+                <ion-chip *ngIf="usuario.idUsuario != chat.uid" color="warning" mode="ios" outline="true">
+                    <ion-label>{{ chat.nombre}}</ion-label>
+                </ion-chip>
+                <p>{{ chat.mensaje }}</p>
+            </ion-col>
+        </ion-row>
+
+        <!-- <ion-row>
+            <ion-col size="12" class="aling-right">
+                <ion-chip color="primary" mode="ios" outline="false">
+                    <ion-label>Julio Jimenez</ion-label>
+                </ion-chip>
+                <p>Hola kelly</p>
+            </ion-col>
+        </ion-row>
+    
+    
+        <ion-row>
+            <ion-col size="12">
+                <ion-chip color="warning" mode="ios" outline="false">
+                    <ion-label>Kelly paternina</ion-label>
+                </ion-chip>
+                <p>Hola Julio</p>
+            </ion-col>
+        </ion-row> -->
+
+        <ion-row id="end"></ion-row>
+    </ion-grid>
+</ion-content>
+
+
+
+<ion-grid fixed>
+    <ion-row>
+        <ion-col size="9">
+            <ion-input type="text" [(ngModel)]="mensaje" placeholder="Enviar mensaje"></ion-input>
+        </ion-col>
+        <ion-col size="3">
+            <ion-button (click)="enviar_mensaje()" shape="round">
+                <ion-icon name="caret-forward-outline"></ion-icon>
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-grid>

@@ -1,0 +1,65 @@
+ejecutar base de datos
+servidor de express: node dist/
+aplicacion : ionic serve
+
+
+https://sequelize.readthedocs.io/en/latest/docs/models-definition/#validations
+
+https://www.pedropablomoral.com/aprender-a-programar/javascript/bolo-palma-aplicacion-control-competiciones-deportivas-parte-3/
+
+ionic cordova run android -l
+
+ng build --prod --service-worker -- --base-href=/public_html/
+
+modificar en angular.json
+ng build --prod --service-worker -- --base-href=/yo-transporto/
+
+si da error 
+cordova platform remove android
+cordova platform add android
+
+
+opciones del mapa de mapbox
+https://github.com/mapbox/mapbox-gl-directions/blob/master/API.md#on
+https://docs.mapbox.com/mapbox-gl-js/example/add-a-marker/
+
+
+usar localizacion sin el mapa
+https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-geocoder-no-map/
+
+obtener las coordenadas
+https://dzone.com/articles/mapboxs-api-to-geocode-data-to-get-location-inform
+
+obtener el nombre del lugar
+https://docs.mapbox.com/api/search/#reverse-geocoding
+
+
+pase la ciudad actual de mapa a principal y de principal a un servicio, de alli a la pagina de registro
+
+tipos de vehiculo
+1: bicicleta
+2: moto
+3: auto
+4: camion
+
+generar ganancias
+1: a
+2: b
+3: c
+
+Crear Usuario Mapbox
+Crear usuario en Onesignal
+
+
+revisar para habilitar boton atras
+https://geekyminds.co.in/exit-app-on-back-press-ionic-4/
+
+idOneSignal: efc74112-2949-4806-8b18-c8146a41ea47
+
+
+
+
+ver-oferta-conductor-pasajero = se ve la oferta que realizo el pasajero desde el modo conductor
+ver-oferta-pasajero = se muestra la oferta que genero el pasajero desde el modo pasajero
+ver-oferta-conductor = se muestra la oferta que genero el conductor desde el modo conductor
+ver-oferta/1 = se ve la oferta que realizo el conductor desde el modo pasajero

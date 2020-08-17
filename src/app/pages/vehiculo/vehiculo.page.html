@@ -1,0 +1,86 @@
+<ion-header>
+    <ion-toolbar color="#f77708">
+        <ion-title></ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+    <ion-label color="primary" class="ion-text-center">
+        <h1>Registre su vehiculo</h1>
+    </ion-label>
+
+    <!-- mapa -->
+    <app-mapa lugar="oferta"></app-mapa>
+
+
+    <ion-grid fixed style="background-color:lightskyblue">
+
+        <form (ngSubmit)="registroVehiculo( fRegistro )" #fRegistro="ngForm">
+            <ion-row>
+                <ion-col>
+
+                    <ion-list>
+
+                        <ion-item>
+                            <ion-label>Marca</ion-label>
+                            <ion-input name="marca" type="text" [(ngModel)]="registerVehiculo.marca" required></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label>Modelo</ion-label>
+                            <ion-input name="modelo" type="text" [(ngModel)]="registerVehiculo.modelo" required></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label>Placa</ion-label>
+                            <ion-input name="placa" type="text" [(ngModel)]="registerVehiculo.placa" required></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label>Color</ion-label>
+                            <ion-input name="color" type="text" [(ngModel)]="registerVehiculo.color" required></ion-input>
+                        </ion-item>
+
+
+                    </ion-list>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <ion-button type="submit" color="tertiary" shape="round">
+                        Guardar Vehiculo
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+
+        </form>
+
+        <ion-row>
+            <ion-col size="6">
+                <ion-button expand="full" shape="round">
+                    <ion-icon slot="start" name="camera"></ion-icon>
+                    Cámara
+                </ion-button>
+            </ion-col>
+            <ion-col size="6">
+                <ion-button expand="full" shape="round">
+                    <ion-icon slot="start" name="images"></ion-icon>
+                    Galería
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size="3" *ngFor="let image of tempImages">
+                <ion-card>
+                    <img src="">
+                </ion-card>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+
+
+</ion-content>

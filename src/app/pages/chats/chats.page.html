@@ -1,0 +1,13 @@
+<ion-content class="ion-padding main-container">
+    <h1>Chat con {{nombre}}</h1>
+
+
+    <ion-grid class="chat-window">
+        <app-chat [idOferta]="idOferta" *ngIf="idOferta"></app-chat>
+    </ion-grid>
+
+    <ion-button (click)="salir()" expand="full" shape="round">
+        Cerrar chat
+    </ion-button>
+
+</ion-content>

@@ -1,0 +1,26 @@
+.top-100 {
+    margin-top: 100px;
+}
+
+.color-blanco {
+    background-color: white;
+}
+
+ion-select {
+    width: 100%;
+    justify-content: left;
+}
+
+ion-select::part(placeholder),
+ion-select::part(text) {
+    flex: 0 0 auto;
+}
+
+.redondear {
+    border-radius: 20%;
+    border-color: blue($color: #673eb4)
+}
+
+.texto-normal {
+    text-transform: none;
+}

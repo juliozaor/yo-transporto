@@ -1,0 +1,50 @@
+    .aling-left {
+        text-align: left;
+        ;
+    }
+    
+    .aling-center {
+        text-align: center;
+    }
+    
+    .input-background {
+        background-color: white;
+    }
+    
+    ion-title {
+        position: static;
+        text-align: center;
+        background-color: blue;
+        color: white;
+        font-size: 28px;
+        height: 100px;
+    }
+    
+    ion-header {
+        background-color: blue;
+    }
+    
+    .border {
+        border-color: blue;
+        border-style: solid;
+        border-width: 3px;
+    }
+    
+    .border-1 {
+        border-color: blue;
+        border-style: solid;
+        border-width: 1px;
+    }
+    
+    .color-azul {
+        color: blue;
+    }
+    
+    .ancho-100 {
+        max-width: 100%;
+    }
+    
+    ion-select {
+        justify-content: left;
+        max-width: 100%;
+    }

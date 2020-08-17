@@ -1,0 +1,83 @@
+[{
+        "idOferta": "043-r84903mjdoos",
+        "usuario": "07c33b83-956f-4ab9-9512-9e98fc82e2f6",
+        "origen": "9.298574,-75.401421",
+        "destino": "9.296324,-75.395140",
+        "idServicio": "1",
+        "valor": "8000",
+        "comentarios": "recogerme en 5 minutos",
+        "coords": "9.296324,-75.395140"
+    },
+    {
+        "idOferta": "2",
+        "usuario": "Pedro Perez",
+        "origen": "Majagual",
+        "destino": "Cortijo",
+        "idServicio": "2",
+        "valor": "5000",
+        "comentarios": "recogerme en 5 minutos",
+        "coords": "9.288848,-75.381893"
+
+    },
+    {
+        "idOferta": "3",
+        "usuario": "Sofia Solorzano",
+        "origen": "Botero",
+        "destino": "Uribe",
+        "idServicio": "1",
+        "valor": "10000",
+        "comentarios": "recogerme en 5 minutos",
+        "coords": "9.289815,-75.384745"
+    },
+    {
+        "idOferta": "4",
+        "usuario": "Diego Diaz",
+        "origen": "Terraza",
+        "destino": "Centro",
+        "idServicio": "2",
+        "valor": "4000",
+        "comentarios": "recogerme en 5 minutos",
+        "coords": "9.291985,-75.392557"
+    },
+    {
+        "idOferta": "5",
+        "usuario": "Juan Jimenez",
+        "origen": "Pioneros",
+        "destino": "Centro",
+        "idServicio": "1",
+        "valor": "8000",
+        "comentarios": "recogerme en 5 minutos",
+        "coords": "9.295850,-75.396971"
+    },
+    {
+        "idOferta": "6",
+        "usuario": "Pedro Perez",
+        "origen": "Majagual",
+        "destino": "Cortijo",
+        "idServicio": "2",
+        "valor": "5000",
+        "comentarios": "recogerme en 5 minutos",
+        "coords": "9.298574,-75.401421"
+
+    },
+    {
+        "idOferta": "7",
+        "usuario": "Sofia Solorzano",
+        "origen": "9.298574,-75.401421",
+        "destino": "Uribe",
+        "idServicio": "1",
+        "valor": "10000",
+        "comentarios": "recogerme en 5 minutos",
+        "coords": "9.302408,-75.405544"
+    },
+    {
+        "idOferta": "8",
+        "usuario": "Diego Diaz",
+        "origen": "Terraza",
+        "destino": "Centro",
+        "idServicio": "2",
+        "valor": "4000",
+        "comentarios": "recogerme en 5 minutos",
+        "coords": "9.305870,-75.406706"
+    }
+]
