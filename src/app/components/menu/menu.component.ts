@@ -87,9 +87,9 @@ tipoUsuario: string;
           this.componentes = this.dataService.getMenuOpts2();
           this.modoUsuario = 'Modo Pasajero';
           this.tipoUsuario = 'conductor';
-          this.navCtrl.navigateRoot( '/conductor', { animated: true } );
-         // location.href = 'conductor';
-          
+          //this.navCtrl.navigateRoot( '/conductor', { animated: true } );
+          location.href = 'conductor';
+
 
         }else{
           this.navCtrl.navigateRoot( '/registroConductor', { animated: true } );
@@ -103,10 +103,11 @@ tipoUsuario: string;
       await this.storage.set('tipoUsuario', 'pasajero');
       this.modoUsuario = 'Modo Conductor';
       this.tipoUsuario = 'pasajero';
-      //location.href = 'principal';
       this.componentes = this.dataService.getMenuOpts();
-      this.navCtrl.navigateRoot( '/principal', { animated: true } );
-      
+      location.href = 'principal';
+
+      //this.navCtrl.navigateRoot( '/principal', { animated: true } );
+
     }
 
 

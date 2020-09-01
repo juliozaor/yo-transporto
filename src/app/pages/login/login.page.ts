@@ -20,7 +20,7 @@ export class LoginPage implements OnInit {
 
   usuario: Usuario = {};
   idSignal: string;
-  
+
   loginUser = {
     email: '',
     password: ''
@@ -47,8 +47,7 @@ export class LoginPage implements OnInit {
    // this.slides.lockSwipes( true );
    this.idSignal = this.push.userId;
    this.registro.idSignal = this.idSignal;
-   
-   
+
   }
 
   ionViewDidEnter() {
@@ -65,8 +64,8 @@ export class LoginPage implements OnInit {
       // navegar al tabs
       //this.ususario = this.usuarioService.getUsuario();
       //console.log(this.ususario);
-      this.navCtrl.navigateRoot( '/principal', { animated: true } );
-      //location.href = '/principal';
+      //this.navCtrl.navigateRoot( '/principal', { animated: true } );
+      location.href = '/principal';
 
 
     } else {
@@ -97,9 +96,9 @@ export class LoginPage implements OnInit {
 
         if ( valido ) {
           // navegar al tabs
-           this.navCtrl.navigateRoot( '/principal', { animated: true } );
+           //this.navCtrl.navigateRoot( '/principal', { animated: true } );
 
-          //location.href = 'principal';
+          location.href = 'principal';
 
         } else {
           // mostrar alerta de usuario y contraseña no correctos

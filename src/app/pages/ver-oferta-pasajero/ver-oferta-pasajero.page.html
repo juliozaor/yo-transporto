@@ -67,7 +67,7 @@
             </ion-col>
         </ion-row>
 
-        <ion-row *ngIf=" oferta.aire  != false || oferta.musica  != false || oferta.sientos  != false">
+        <ion-row *ngIf=" oferta.aire  != false || oferta.musica  != false || oferta.sientos  != false || oferta.maleta  != false">
             <ion-col size="6">
                 <ion-text color="primary">
                     <h3>Requiero: </h3>
@@ -78,6 +78,7 @@
                     <p *ngIf=" oferta.aire  != false">Aire acondicionado</p>
                     <p *ngIf=" oferta.musica  != false">Musica</p>
                     <p *ngIf=" oferta.sientos  != false">Asientos para Bebe</p>
+                    <p *ngIf=" oferta.maleta  != false">Maletero</p>
                 </ion-text>
             </ion-col>
         </ion-row>

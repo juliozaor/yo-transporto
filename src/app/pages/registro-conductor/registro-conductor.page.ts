@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IonSlides, ActionSheetController, NavController, IonCheckbox, IonContent } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { UbicacionService } from '../../services/ubicacion.service';
@@ -9,6 +9,8 @@ import { VehiculoService } from '../../services/vehiculo.service';
 import { Conductor, Vehiculo } from 'src/app/interfaces/interfaces';
 import { PropietarioService } from '../../services/propietario.service';
 import { stringify } from 'querystring';
+import { HttpClient } from '@angular/common/http';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 declare var window: any;
 @Component({
@@ -61,6 +63,11 @@ desplazamientoOP = 'ciudad';
 ciudad1 = '';
 ciudad2 = '';
 
+
+
+
+@ViewChild('pwaphoto') pwaphoto: ElementRef;  //insertar imagenes 
+imgURI: string = null;
 
 
 
@@ -273,7 +280,7 @@ ciudad2 = '';
          const img = window.Ionic.WebView.convertFileSrc(imageData);
          this.tempImagenes.push(img);
          this.imgVehiculo.push(imageData);
-
+         console.log(imageData);
        }, (err) => {
           // Handle error
          });
@@ -325,6 +332,7 @@ ciudad2 = '';
       if (this.tempImgSimit.length < 2){
         this.camera.getPicture(options).then((imageData) => {
          const img = window.Ionic.WebView.convertFileSrc(imageData);
+         
          this.tempImgSimit.push(img);
          this.imgSimit.push(imageData);
        }, (err) => {
@@ -411,7 +419,7 @@ ciudad2 = '';
 
 
  async inicio(){
-    if (this.chkTerminos.checked){
+  //  if (this.chkTerminos.checked){
 
       let conductor: any;
 
@@ -469,7 +477,7 @@ ciudad2 = '';
         codTipoVehiculo: this.tipoVehiculo
       };
 
-
+/* 
       // Subir fotos de la licencia
       const nombLicencia: string[] = ['foto1Licencia', 'foto2Licencia'];
 
@@ -483,7 +491,7 @@ ciudad2 = '';
            i++;
 
         });
-      }
+      } */
 
       // Subir fotos del vehiculo
       const nombVehiculo: string[] = ['foto1', 'foto2', 'foto3', 'foto4', 'foto5'];
@@ -493,6 +501,7 @@ ciudad2 = '';
 
         await this.imgVehiculo.forEach(element => {
 
+           console.log('entro1');
            this.vehiculoService.subirArchivos(element, nombVehiculo[i]);
 
            i++;
@@ -501,7 +510,7 @@ ciudad2 = '';
       }
 
       // Subir fotos del SOAT
-      const nombSoat: string[] = ['foto1Soat', 'foto2Soat'];
+     /* const nombSoat: string[] = ['foto1Soat', 'foto2Soat'];
 
       if (this.imgSoat.length > 0){
         let i = 0;
@@ -515,7 +524,7 @@ ciudad2 = '';
         });
       }
 
-      // Subir fotos del Tarjeta Propiedad
+       // Subir fotos del Tarjeta Propiedad
       const nombTP: string[] = ['foto1TP', 'foto2TP'];
 
       if (this.imgPropiedad.length > 0){
@@ -544,20 +553,20 @@ ciudad2 = '';
 
         });
       }
-
+ */
 
 
       // guardar dependiendo de la ganancia que se planea recibir
       // tslint:disable-next-line: triple-equals
-      if ( this.generarGanancia == 'c'){
+     /*  if ( this.generarGanancia == 'c'){
       
           console.log('se guardara como solo conductor');
 
           const valido = await this.conductorService.crearConductor(conductor);
 
           if ( valido ) {
-            this.navCtrl.navigateRoot( '/conductor', { animated: true } );
-            // location.href = 'conductor';
+            //this.navCtrl.navigateRoot( '/conductor', { animated: true } );
+             location.href = 'conductor';
              //console.log('Creado conductor');
           }else {
             // mostrar alerta de usuario y contraseña no correctos
@@ -575,8 +584,8 @@ ciudad2 = '';
           const validarVehiculo = await this.vehiculoService.registroVehiculo(vehiculo);
           if ( validarVehiculo ) {
             this.ui.alertaInformativa('Usted ha registrado su vehiculo correctamente');
-            this.navCtrl.navigateRoot( '/principal', { animated: true } );
-            //location.href = 'principal';
+            //this.navCtrl.navigateRoot( '/principal', { animated: true } );
+            location.href = 'principal';
          }else {
 
            this.ui.alertaInformativa('El Vehiculo no pudo ser creado.');
@@ -607,8 +616,8 @@ ciudad2 = '';
 
               if ( cV ){
                 this.ui.alertaInformativa('Usted se ha registrado correctamente');
-                this.navCtrl.navigateRoot( '/conductor', { animated: true } );
-                //location.href = 'conductor';
+                //this.navCtrl.navigateRoot( '/conductor', { animated: true } );
+                location.href = 'conductor';
               }else {
   
                 this.ui.alertaInformativa('no se pudo enlazar el vehiculo con el conductor.');
@@ -630,13 +639,84 @@ ciudad2 = '';
           this.ui.alertaInformativa('El usuario no puede ser registrado como conductor.');
         }
 
-      }
+      } */
 
       //this.navCtrl.navigateRoot( '/conductor', { animated: true } );
       //console.log('tipo: ', this.tipoVehiculo, ' categoria: ', this.generarGanancia, );
 
-    }else{
+    /* }else{
       this.ui.alertaInformativa('Es necesario que acepte el "consentimiento legal" para poder continuar');
+    } */
+
+  }
+
+  openPWAPhotoPicker() {
+    if (this.pwaphoto == null) {
+      return;
+    }
+    this.pwaphoto.nativeElement.click();
+  }
+
+  uploadPWA() {
+
+    if (this.pwaphoto == null) {
+      return;
+    }
+
+    const fileList: FileList = this.pwaphoto.nativeElement.files;
+    if (fileList && fileList.length > 0) {
+
+      this.firstFileToBase64(fileList[0]).then((result: string) => {
+
+       /*  const imgDemo: File = fileList[0];
+        console.log(imgDemo); */
+        
+        console.log(this.pwaphoto.nativeElement.files);
+        this.tempImagenes.push(result);
+
+        this.imgVehiculo.push(fileList[0]);
+
+      }, (err: any) => {
+        // Ignore error, do nothing
+        this.tempImagenes = [];
+      });
+    }
+  }
+
+  private firstFileToBase64(fileImage: File): Promise<{}> {
+
+    return new Promise((resolve, reject) => {
+      const fileReader: FileReader = new FileReader();
+      if (fileReader && fileImage != null) {
+        fileReader.readAsDataURL(fileImage);
+        fileReader.onload = () => {
+          resolve(fileReader.result);
+        };
+
+        fileReader.onerror = (error) => {
+          reject(error);
+        };
+      } else {
+        reject(new Error('No file found'));
+      }
+    });
+  }
+
+  readUrl(event) {
+    if (event.target.files && event.target.files[0]) {
+         console.log(event.target.files[0]);
+         const reader = new FileReader();
+    
+         reader.onload = ( event: any) => {
+
+          console.log(event);
+          
+
+          this.tempImagenes.push(event.target.result);
+           //this.url = event.target.result;
+         }
+    
+         reader.readAsDataURL(event.target.files[0]);
     }
 
   }

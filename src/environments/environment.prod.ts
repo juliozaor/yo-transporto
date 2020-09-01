@@ -9,9 +9,9 @@ export const environment = {
     messagingSenderId: '856156621973',
     appId: '1:856156621973:web:506dd1bb1bf464f83f9f9c'
   },
-   url: 'http://192.168.1.6:3001'
+  // url: 'http://192.168.1.6:3001'
  // url: 'https://yotransporto.com/api'
-  // url: 'https://serve-yo-transporto.herokuapp.com'
+   url: 'https://serve-yo-transporto.herokuapp.com'
 };
 
 /* export const firebaseConfig = {

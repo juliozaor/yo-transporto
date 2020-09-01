@@ -9,7 +9,7 @@
 
 <ion-content>
 
-    <form (ngSubmit)="generarOferta( fOferta )" #fOferta="ngForm" style="background-color:lightskyblue">
+    <form (ngSubmit)="generarOferta( Oferta )" #Oferta="ngForm" style="background-color:lightskyblue">
         <ion-grid fixed>
 
             <ion-row>
@@ -34,7 +34,7 @@
                             <ion-row>
                                 <ion-col>
                                     <ion-label>Origen(Municipio)</ion-label>
-                                    <ion-input name="origen" [(ngModel)]="oferta.origen" type="text" placeholder="Sincelejo(sucre)"></ion-input>
+                                    <ion-input name="origen" [(ngModel)]="oferta.origen" type="text" placeholder="Sincelejo(sucre)" *ngIf="conductor.esInterUrbano == false"></ion-input>
                                 </ion-col>
                             </ion-row>
 
@@ -43,7 +43,7 @@
                             <ion-row>
                                 <ion-col>
                                     <ion-label>Destino(Municipio)</ion-label>
-                                    <ion-input name="destino" [(ngModel)]="oferta.destino" type="text" placeholder="Cartagena(Bolivar)"></ion-input>
+                                    <ion-input name="destino" [(ngModel)]="oferta.destino" type="text" placeholder="Cartagena(Bolivar)" *ngIf="conductor.esInterUrbano == false"></ion-input>
                                 </ion-col>
                             </ion-row>
 
@@ -52,7 +52,7 @@
                             <ion-row>
                                 <ion-col>
                                     <ion-label>fecha de salida</ion-label>
-                                    <ion-input name="fecha_salida" [(ngModel)]="oferta.fecha_salida" type="date" placeholder="10/12/2020"></ion-input>
+                                    <ion-input name="fecha_salida" [(ngModel)]="oferta.fecha_salida" type="date" placeholder="10/12/2020" *ngIf="conductor.esInterUrbano == false"></ion-input>
                                 </ion-col>
                             </ion-row>
 
@@ -61,7 +61,7 @@
                             <ion-row>
                                 <ion-col>
                                     <ion-label>Hora de Salida(Opcional)</ion-label>
-                                    <ion-input name="hora_salida" [(ngModel)]="oferta.hora_salida" type="time" placeholder="06:00 p.m."></ion-input>
+                                    <ion-input name="hora_salida" [(ngModel)]="oferta.hora_salida" type="time" placeholder="06:00 p.m." *ngIf="conductor.esInterUrbano == false"></ion-input>
                                 </ion-col>
                             </ion-row>
 

@@ -617,6 +617,22 @@
                     </ion-col>
                 </ion-row>
 
+                <ion-row>
+                    <ion-col size="12">
+                        <button ion-button (click)="openPWAPhotoPicker()">Let's go!</button>
+
+                        <div *ngIf="imgURI != null">
+                            <img [src]="imgURI" #imageSrc style="width: 200px;">
+                        </div>
+
+                        <div id="pwa">
+                            <input type="file" id="pwaphoto" #pwaphoto accept="image/x-png,image/jpeg" (change)="uploadPWA()">
+                        </div>
+
+                        <div><input type='file' (change)="readUrl($event)"></div>
+                    </ion-col>
+                </ion-row>
+
                 <!--  <ion-row>
                     <ion-col size="12">
                         <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">
@@ -625,7 +641,6 @@
                 <ion-row>
                     <ion-col size="4" *ngFor="let image of tempImagenes; let i = index">
                         <ion-card (click)="borrarFoto(image, '1')"><img [src]="image"></ion-card>
-
 
                     </ion-col>
 
