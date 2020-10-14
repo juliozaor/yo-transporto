@@ -3,10 +3,14 @@
         <ion-buttons slot="start" (click)="toggleMenu()">
             <!--  <ion-icon slot="icon-only" name="menu"></ion-icon> -->
 
-            <ion-menu-button menu="primerMenu" color="primary"></ion-menu-button>
+            <ion-menu-button menu="primerMenu" color="#ffffff"></ion-menu-button>
 
         </ion-buttons>
         <ion-title>Ofertas Conductor</ion-title>
+        <ion-buttons slot="end" class="imagenIco">
+            <img src="./assets/imagenes/logo1.png" />
+        </ion-buttons>
+
     </ion-toolbar>
 </ion-header>
 
@@ -22,20 +26,22 @@
             <ion-col size="12">
                 <ion-list *ngFor="let oferta of ofertasCompletas" #lista>
 
-                    <ion-item color="medium" (click)="verOfertaConductor(oferta)">
+                    <div *ngIf="validar(oferta.oferta.createdAt, oferta.oferta.comentarios)">
 
-                        <ion-label>
-                            <h1>Conductor: {{ oferta.usuario.nombre}}</h1>
-                            <p>Origen: {{ oferta.oferta.origen}}</p>
-                            <p>Destino: {{ oferta.oferta.destino}}</p>
-                            <p>Comentarios: {{ oferta.oferta.comentarios}}</p>
+                        <ion-item color="medium" (click)="verOfertaConductor(oferta)">
 
-                            <p class="ion-text-right">$: {{ oferta.oferta.tarifa }}</p>
-                        </ion-label>
+                            <ion-label>
+                                <h1>Conductor: {{ oferta.usuario.nombre}}</h1>
+                                <p>Origen: {{ oferta.oferta.origen}}</p>
+                                <p>Destino: {{ oferta.oferta.destino}}</p>
+                                <p>Comentarios: {{ oferta.oferta.comentarios}}</p>
 
-                    </ion-item>
+                                <p class="ion-text-right">$: {{ oferta.oferta.tarifa }}</p>
+                            </ion-label>
 
+                        </ion-item>
 
+                    </div>
 
 
                 </ion-list>

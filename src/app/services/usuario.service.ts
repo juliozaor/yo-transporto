@@ -17,7 +17,9 @@ export class UsuarioService {
 
  ofertaConductor: OfertaConductorCompleta;
  ofertaPasajero: any;
- pagina = 0;
+ paginaConductor = 0;
+ paginaAceptada = 0;
+ paginaPasajero = 0;
 
 
   constructor( private http: HttpClient,
@@ -214,13 +216,13 @@ export class UsuarioService {
   ofertasConductor(codTipoOferta: string, idPasajero, pull: boolean = false){
    
     if ( pull ){
-      this.pagina = 0;
+      this.paginaConductor = 0;
     }
 
-    this.pagina ++;
+    this.paginaConductor ++;
 
     // tslint:disable-next-line: max-line-length
-    return this.http.get<any>(`${ URL }/user/buscarOfertasConductor/${ codTipoOferta }/?idPasajero=${ idPasajero }&pagina=${ this.pagina }`);
+    return this.http.get<any>(`${ URL }/user/buscarOfertasConductor/${ codTipoOferta }/?idPasajero=${ idPasajero }&pagina=${ this.paginaConductor }`);
 
   }
 
@@ -277,22 +279,23 @@ export class UsuarioService {
 
   buscarOfertasCPasajero(idUsuario: string, pull: boolean = false){
     if ( pull ){
-      this.pagina = 0;
+      this.paginaPasajero = 0;
     }
+  
+    this.paginaPasajero ++;
 
-    this.pagina ++;
-    return  this.http.get<any>(`${ URL }/user/buscarOfertas/${ idUsuario }/?pagina=${ this.pagina }`);
+    return  this.http.get<any>(`${ URL }/user/buscarOfertas/${ idUsuario }/?pagina=${ this.paginaPasajero }`);
 
   }
 
   // Buscar las ofertas  aceptadas
   ofertasAceptadas(idUsuario, pull: boolean = false){
     if ( pull ){
-      this.pagina = 0;
+      this.paginaAceptada = 0;
     }
 
-    this.pagina ++;
-    return this.http.get<any>(`${ URL }/user/buscarOfertasAceptadas/${ idUsuario }/?pagina=${ this.pagina }`);
+    this.paginaAceptada ++;
+    return this.http.get<any>(`${ URL }/user/buscarOfertasAceptadas/${ idUsuario }/?pagina=${ this.paginaAceptada }`);
 
   }
 

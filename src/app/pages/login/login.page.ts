@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
   @ViewChild('terminos') terminos: IonCheckbox;
 
   usuario: Usuario = {};
-  idSignal: string;
+  idSignal = '';
 
   loginUser = {
     email: '',
@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
     email: '',
     password: '',
     telefono: '',
-    foto: '',
+    foto: 'av-1.png',
     idSignal: this.idSignal
   };
 
@@ -45,7 +45,8 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
    // this.slides.lockSwipes( true );
-   this.idSignal = this.push.userId;
+  // this.idSignal = this.push.userId;
+   //this.push.getPublicKey().then(console.log);
    this.registro.idSignal = this.idSignal;
 
   }
@@ -65,7 +66,7 @@ export class LoginPage implements OnInit {
       //this.ususario = this.usuarioService.getUsuario();
       //console.log(this.ususario);
       //this.navCtrl.navigateRoot( '/principal', { animated: true } );
-      location.href = '/principal';
+      location.href = '#/principal';
 
 
     } else {
@@ -98,7 +99,7 @@ export class LoginPage implements OnInit {
           // navegar al tabs
            //this.navCtrl.navigateRoot( '/principal', { animated: true } );
 
-          location.href = 'principal';
+          location.href = '#/principal';
 
         } else {
           // mostrar alerta de usuario y contraseña no correctos

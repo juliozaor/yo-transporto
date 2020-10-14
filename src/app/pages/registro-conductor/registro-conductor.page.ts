@@ -510,7 +510,7 @@ imgURI: string = null;
       }
 
       // Subir fotos del SOAT
-     /* const nombSoat: string[] = ['foto1Soat', 'foto2Soat'];
+     const nombSoat: string[] = ['foto1Soat', 'foto2Soat'];
 
       if (this.imgSoat.length > 0){
         let i = 0;
@@ -553,12 +553,12 @@ imgURI: string = null;
 
         });
       }
- */
+
 
 
       // guardar dependiendo de la ganancia que se planea recibir
       // tslint:disable-next-line: triple-equals
-     /*  if ( this.generarGanancia == 'c'){
+      if ( this.generarGanancia == 'c'){
       
           console.log('se guardara como solo conductor');
 
@@ -566,7 +566,7 @@ imgURI: string = null;
 
           if ( valido ) {
             //this.navCtrl.navigateRoot( '/conductor', { animated: true } );
-             location.href = 'conductor';
+             location.href = '#/conductor';
              //console.log('Creado conductor');
           }else {
             // mostrar alerta de usuario y contraseña no correctos
@@ -585,12 +585,12 @@ imgURI: string = null;
           if ( validarVehiculo ) {
             this.ui.alertaInformativa('Usted ha registrado su vehiculo correctamente');
             //this.navCtrl.navigateRoot( '/principal', { animated: true } );
-            location.href = 'principal';
+            location.href = '#/principal';
          }else {
 
            this.ui.alertaInformativa('El Vehiculo no pudo ser creado.');
          }
-          //location.href = 'conductor';
+          //location.href = '#/conductor';
        }else {
 
          this.ui.alertaInformativa('El propietario no pudo ser creado.');
@@ -617,7 +617,7 @@ imgURI: string = null;
               if ( cV ){
                 this.ui.alertaInformativa('Usted se ha registrado correctamente');
                 //this.navCtrl.navigateRoot( '/conductor', { animated: true } );
-                location.href = 'conductor';
+                location.href = '#/conductor';
               }else {
   
                 this.ui.alertaInformativa('no se pudo enlazar el vehiculo con el conductor.');
@@ -639,7 +639,7 @@ imgURI: string = null;
           this.ui.alertaInformativa('El usuario no puede ser registrado como conductor.');
         }
 
-      } */
+      }
 
       //this.navCtrl.navigateRoot( '/conductor', { animated: true } );
       //console.log('tipo: ', this.tipoVehiculo, ' categoria: ', this.generarGanancia, );

@@ -4,11 +4,20 @@
         <ion-buttons slot="start" (click)="toggleMenu()">
             <!--  <ion-icon slot="icon-only" name="menu"></ion-icon> -->
 
-            <ion-menu-button menu="primerMenu" color="primary"></ion-menu-button>
+            <ion-menu-button menu="primerMenu" color="#ffffff"></ion-menu-button>
 
         </ion-buttons>
+
+
         <ion-title>Tú pides</ion-title>
+
+        <ion-buttons slot="end" class="imagenIco">
+            <img src="./assets/imagenes/logo1.png" />
+        </ion-buttons>
+
+
     </ion-toolbar>
+
 </ion-header>
 
 <ion-content class="ion-padding">
@@ -22,33 +31,30 @@
     <ion-grid fixed>
 
         <ion-text color="primary" class="aling-center">
-            <h3>Servicios</h3>
+            <h3 style="font-family: 'Poppins Bold';">Servicios</h3>
         </ion-text>
         <ion-text>
             <h4>Escoja el tipo de servicio que desea recibir</h4>
         </ion-text>
         <ion-row>
-            <ion-col size="3">
+            <ion-col class="distancia" size="12" size-lg="3" size-md="3" size-sm="3" size-xs="3">
                 <ion-card class="redondear">
                     <ion-img src="./assets/imagenes/ciudad.png" (click)="ciudad()"></ion-img>
                 </ion-card>
             </ion-col>
-            <ion-col size="3">
+            <ion-col class="distancia" size="12" size-lg="3" size-md="3" size-sm="3" size-xs="3">
                 <ion-card class="redondear">
                     <ion-img src="./assets/imagenes/domicilios.png" (click)="mensajeria()"></ion-img>
                 </ion-card>
 
             </ion-col>
-            <!--  <ion-col size="2">
-                <ion-img src="./assets/imagenes/.png" (click)="ciudad2()"></ion-img>
-            </ion-col> -->
-            <ion-col size="3">
+            <ion-col class="distancia" size="12" size-lg="3" size-md="3" size-sm="3" size-xs="3">
                 <ion-card class="redondear">
                     <ion-img src="./assets/imagenes/inter_urbano.png" (click)="interurbano()"></ion-img>
                 </ion-card>
 
             </ion-col>
-            <ion-col size="3">
+            <ion-col class="distancia" size="12" size-lg="3" size-md="3" size-sm="3" size-xs="3">
                 <ion-card class="redondear">
                     <ion-img src="./assets/imagenes/camion.png" (click)="mercancia()"></ion-img>
                 </ion-card>
@@ -62,7 +68,7 @@
 
         <ion-slide class="aling-left">
 
-            <ion-grid fixed class="color-blanco">
+            <ion-grid fixed>
                 <ion-row>
                     <ion-col size="12">
                         <h3>Ciudad</h3>
@@ -70,22 +76,29 @@
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaCiudad.origen" placeholder="Origen" name="c-origen">
+                            <ion-icon slot="start" name="location" class="colorIcono"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
                         <ion-input type="text" [(ngModel)]="ofertaCiudad.destino" placeholder="Destino" name="c-destino">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="enter" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="text" [(ngModel)]="ofertaCiudad.tarifa" placeholder="Ofrezca su tarifa" name="c-tarifa">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="cash" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
                         <ion-input class="texto-normal" type="text" [(ngModel)]="ofertaCiudad.comentarios" placeholder="Comentarios" multiline="true" name="c-comentario">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="chatbubble-ellipses" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
@@ -116,7 +129,7 @@
 
         <ion-slide class="aling-left">
 
-            <ion-grid fixed class="color-blanco">
+            <ion-grid fixed>
                 <ion-row>
                     <ion-col size="12">
                         <h3>Domicilios</h3>
@@ -145,28 +158,28 @@
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="text" [(ngModel)]="ofertaEnvio.origen" placeholder="Recogida" name="e-recogida">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="location" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="text" [(ngModel)]="ofertaEnvio.destino" placeholder="Destino" name="e-destino">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="enter" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="text" [(ngModel)]="ofertaEnvio.tarifa" placeholder="Ofrezca su tarifa" name="e-tarifa">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="cash" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
                         <ion-input class="texto-normal" type="text" [(ngModel)]="ofertaEnvio.comentarios" placeholder="Comentarios" multiline="true" name="e-comentario">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="chatbubble-ellipses" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
@@ -176,7 +189,7 @@
 
         <ion-slide class="aling-left">
 
-            <ion-grid fixed class="color-blanco">
+            <ion-grid fixed>
                 <ion-row>
                     <ion-col size="12">
                         <h3>Inter Urbano</h3>
@@ -185,35 +198,45 @@
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="text" [(ngModel)]="ofertaInter.origen" placeholder="Origen" name="i-origen">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="location" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="text" [(ngModel)]="ofertaInter.destino" placeholder="Destino" name="i-destino">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="enter" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="date" [(ngModel)]="ofertaInter.fecha" placeholder="Fecha Prevista" name="i-fecha">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="calendar" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
+
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaInter.pasajeros" placeholder="Cantidad de pasajeros" name="i-pasajeros">
+                            <ion-icon slot="start" name="people" class="colorIcono"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+
+
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="text" [(ngModel)]="ofertaInter.tarifa" placeholder="Ofrezca su tarifa" name="i-tarifa">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="cash" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
                         <ion-input class="texto-normal" type="text" [(ngModel)]="ofertaInter.comentarios" placeholder="Comentarios" multiline="true" name="c-comentario">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="chatbubble-ellipses" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
@@ -234,7 +257,7 @@
                         </ion-item>
                         <ion-item>
                             <ion-label>Maletero</ion-label>
-                            <ion-checkbox mode="ios" [(ngModel)]="ofertaCiudad.maleta"></ion-checkbox>
+                            <ion-checkbox mode="ios" [(ngModel)]="ofertaInter.maleta"></ion-checkbox>
                         </ion-item>
 
                     </ion-col>
@@ -244,7 +267,7 @@
 
         <ion-slide class="aling-left">
 
-            <ion-grid fixed class="color-blanco">
+            <ion-grid fixed>
                 <ion-row>
                     <ion-col size="12">
                         <h3>Mercancia</h3>
@@ -253,35 +276,45 @@
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="text" [(ngModel)]="ofertaMercancia.origen" placeholder="Origen" name="m-origen">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="location" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="text" [(ngModel)]="ofertaMercancia.destino" placeholder="Destino" name="m-destino">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="enter" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="date" [(ngModel)]="ofertaMercancia.fecha" name="m-fecha">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="calendar" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
+
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-input type="text" [(ngModel)]="ofertaMercancia.peso" placeholder="Peso de la mercancia" name="m-peso">
+                            <ion-icon slot="start" name="barbell" class="colorIcono"></ion-icon>
+                        </ion-input>
+                    </ion-col>
+                </ion-row>
+
+
                 <ion-row>
                     <ion-col size="12">
                         <ion-input type="text" [(ngModel)]="ofertaMercancia.tarifa" placeholder="Ofrezca su tarifa" name="m-tarifa">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="cash" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
                         <ion-input class="texto-normal" type="text" [(ngModel)]="ofertaMercancia.comentarios" placeholder="Descripción de la mercancia" multiline="true" name="m-comentario">
-                            <ion-icon slot="start" name="person"></ion-icon>
+                            <ion-icon slot="start" name="chatbubble-ellipses" class="colorIcono"></ion-icon>
                         </ion-input>
                     </ion-col>
                 </ion-row>

@@ -7,6 +7,7 @@ import { UsuarioService } from '../../services/usuario.service';
 import { async } from '@angular/core/testing';
 import { ConductorService } from '../../services/conductor.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-conductor',
@@ -57,7 +58,7 @@ export class ConductorPage implements OnInit {
       // resp.coords.longitude
 
       this.coords = `${resp.coords.latitude},${resp.coords.longitude}`;
-      console.log(this.coords);
+     // console.log(this.coords);
 
 
       }).catch((error) => {
@@ -69,10 +70,7 @@ export class ConductorPage implements OnInit {
 
       this.usuario = await user;
 
-
-      await this.cargarOfertas(false);
-
-
+      await this.cargarOfertas(false, true);
 
     });
 
@@ -80,11 +78,13 @@ export class ConductorPage implements OnInit {
 
   async cargarOfertas(event?, pull: boolean = false) {
 
-   await this.conductorService.datosConductor(this.usuario.idUsuario).subscribe(async cond => {
+
+   this.conductorService.datosConductor(this.usuario.idUsuario).subscribe(async cond => {
+
+      let interU = 0;
 
       this.conductor = await cond.conductor;
-      //console.log(this.conductor);
-      let interU = 0;
+
 
       if ( this.conductor.esInterUrbano){
         interU = 1;
@@ -96,6 +96,9 @@ export class ConductorPage implements OnInit {
 
 
       await this.ofertasPasajero.push(...resp.ofertas);
+
+      console.log(resp);
+
       if ( event ){
         event.target.complete();
 
@@ -112,12 +115,12 @@ export class ConductorPage implements OnInit {
     });
 
 
-   await this.conductorService.buscarOfertasConductor(this.usuario.idUsuario, pull).subscribe(async resp => {
+   this.conductorService.buscarOfertasConductor(this.usuario.idUsuario, pull).subscribe(async resp => {
 
       await this.ofertas.push(...resp.ofertas);
 
       if ( event ){
-        console.log('entro al si', resp.ofertas.length);
+       // console.log('entro al si', resp.ofertas.length);
         event.target.complete();
 
         if (resp.ofertas.length === 0 && this.tipo === 'ofertadas'){
@@ -129,11 +132,11 @@ export class ConductorPage implements OnInit {
 
     });
 
-   await this.conductorService.ofertasAceptadas(this.usuario.idUsuario, pull).subscribe(async resp => {
+   this.conductorService.ofertasAceptadas(this.usuario.idUsuario, pull).subscribe(async resp => {
       await this.ofertasAceptadas.push(...resp.ofertas);
 
       if ( event ){
-        console.log('entro al si', resp.ofertas.length);
+       // console.log('entro al si', resp.ofertas.length);
         event.target.complete();
 
         if (resp.ofertas.length === 0 && this.tipo === 'aceptadas'){
@@ -166,7 +169,7 @@ export class ConductorPage implements OnInit {
 
   segmentChanged(evento) {
     const valorSegmento = evento.detail.value;
-    console.log(valorSegmento);
+    //console.log(valorSegmento);
 
     if (valorSegmento === 'recibidas') {
       this.slides.lockSwipes(false);
@@ -238,7 +241,34 @@ export class ConductorPage implements OnInit {
   verOfertaAceptada(oferta){
     this.conductorService.ofertaPasajero = oferta;
 
+    console.log(oferta);
+
     this.navCtrl.navigateRoot( `/ver-oferta-conductor-pasajero/2`, { animated: true } );
+  }
+
+
+ validar(fecha, com): boolean {
+
+  let fechaActual = new Date();
+  let fechaGuardada = new Date(fecha);
+
+ 
+
+  fechaGuardada.setMinutes(fechaGuardada.getMinutes() + 120);
+
+
+
+  console.log(com, ' : ', fechaActual.getTime(), ' , ', fechaGuardada.getTime());
+
+  if (fechaActual.getTime() < fechaGuardada.getTime()){
+    console.log('se va a mostrar');
+    return true;
+  }else{
+    console.log('No se va a mostrar');
+    return false;
+  }
+
+
   }
 
 }

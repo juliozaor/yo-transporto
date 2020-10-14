@@ -87,8 +87,9 @@ tipoUsuario: string;
           this.componentes = this.dataService.getMenuOpts2();
           this.modoUsuario = 'Modo Pasajero';
           this.tipoUsuario = 'conductor';
-          //this.navCtrl.navigateRoot( '/conductor', { animated: true } );
-          location.href = 'conductor';
+          //this.navCtrl.navigateRoot( '#/conductor', { animated: true } );
+          window.location.href = '#/conductor';
+          location.reload();
 
 
         }else{
@@ -104,7 +105,8 @@ tipoUsuario: string;
       this.modoUsuario = 'Modo Conductor';
       this.tipoUsuario = 'pasajero';
       this.componentes = this.dataService.getMenuOpts();
-      location.href = 'principal';
+      window.location.href = '#/principal';
+      location.reload();
 
       //this.navCtrl.navigateRoot( '/principal', { animated: true } );
 

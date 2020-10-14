@@ -37,16 +37,55 @@
 }
 
 ion-header {
-    background-image: url(assets/imagenes/encabezado.png);
-    background-color: transparent;
+    // background-image: url(assets/imagenes/encabezado.png);
+    background-color: #f77708;
     background-size: 100% 100%;
     height: 150px;
+    border-bottom-left-radius: 30%;
+    border-bottom-right-radius: 30%;
+    color: white;
+}
+
+.header_logo {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+    margin: 0 0 0 2px;
 }
 
 ion-content {
-    font-family: Poppins, Georgia, Times, serif;
+    font-family: 'Poppins Regular';
+    overflow: hidden;
 }
 
 ion-title {
-    font-family: Poppins, Georgia, Times, serif;
+    font-family: 'Poppins Bold';
+}
+
+.imagenIco {
+    width: 30%;
+    padding-top: 10px;
+}
+
+
+/* .imagenIco {
+    width: 30%;
+    position: absolute;
+    right: 0;
+} */
+
+@font-face {
+    font-family: 'Poppins Regular';
+    src: url('../src/assets/fonts/Poppins-Regular.ttf');
+    // src: url('path/to/your/font/file');//path to your font file
+}
+
+@font-face {
+    font-family: 'Poppins Bold';
+    src: url('../src/assets/fonts/Poppins-Bold.ttf');
+    // src: url('path/to/your/font/file');//path to your font file
+}
+
+.colorIcono {
+    color: #f77708;
 }

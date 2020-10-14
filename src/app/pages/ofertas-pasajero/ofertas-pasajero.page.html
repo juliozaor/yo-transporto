@@ -3,29 +3,22 @@
         <ion-buttons slot="start" (click)="toggleMenu()">
             <!--  <ion-icon slot="icon-only" name="menu"></ion-icon> -->
 
-            <ion-menu-button menu="primerMenu" color="primary"></ion-menu-button>
+            <ion-menu-button menu="primerMenu" color="#ffffff"></ion-menu-button>
 
         </ion-buttons>
         <ion-title>Ofertas pasajero</ion-title>
+        <ion-buttons slot="end" class="imagenIco">
+            <img src="./assets/imagenes/logo1.png" />
+        </ion-buttons>
+
     </ion-toolbar>
-    <ion-segment (ionChange)="segmentChanged($event)" color="tertiary" value="recibidas">
 
-        <ion-segment-button value="aceptadas">
-            <ion-label>Aceptadas</ion-label>
-        </ion-segment-button>
-
-        <ion-segment-button value="ofertadas">
-            <ion-label>Ofertadas</ion-label>
-        </ion-segment-button>
-
-
-    </ion-segment>
 </ion-header>
 
 <!-- <div>
     <ion-segment (ionChange)="segmentChanged($event)" color="tertiary" value="recibidas">
 
-        <ion-segment-button value="aceptadas">
+        <ion-segment-button value="aceptadas ">
             <ion-label>Aceptadas</ion-label>
         </ion-segment-button>
 
@@ -38,6 +31,20 @@
 </div> -->
 
 <ion-content [scrollEvents]="true" #content>
+    <ion-segment (ionChange)="segmentChanged($event)" color="tertiary" value="ofertadas">
+
+        <ion-segment-button value="ofertadas">
+            <ion-label>Ofertadas</ion-label>
+        </ion-segment-button>
+
+        <ion-segment-button value="aceptadas">
+            <ion-label>Aceptadas</ion-label>
+        </ion-segment-button>
+
+
+
+
+    </ion-segment>
 
     <!-- refresh -->
     <ion-refresher slot="fixed" (ionRefresh)="recargar($event)" pullFactor="0.8" pullMin="60" pullMax="120" #refresh>
@@ -46,35 +53,7 @@
 
 
     <ion-slides mode="ios" pager="false" scrollbar="ios" #slides>
-        <ion-slide>
 
-            <ion-grid fixed>
-                <ion-row *ngIf="aceptadas">
-                    <ion-col size="12">
-                        <ion-list *ngFor="let oferta of aceptadas" #lista>
-
-                            <ion-item color="medium" (click)="verOfertaConductor(oferta)">
-
-                                <ion-label>
-                                    <h1>Conductor: {{ oferta.usuario.nombre}}</h1>
-                                    <p>Origen: {{ oferta.oferta.origen}}</p>
-                                    <p>Destino: {{ oferta.oferta.destino}}</p>
-                                    <p>Comentarios: {{ oferta.oferta.comentarios}}</p>
-
-                                    <p class="ion-text-right">$: {{ oferta.oferta.tarifa }}</p>
-                                </ion-label>
-
-                            </ion-item>
-
-
-
-
-                        </ion-list>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-
-        </ion-slide>
         <ion-slide>
 
             <ion-grid fixed>
@@ -126,6 +105,35 @@
                 </ion-row>
             </ion-grid>
 
+
+        </ion-slide>
+        <ion-slide>
+
+            <ion-grid fixed>
+                <ion-row *ngIf="aceptadas">
+                    <ion-col size="12">
+                        <ion-list *ngFor="let oferta of aceptadas" #lista>
+
+                            <ion-item color="medium" (click)="verOfertaConductor(oferta)">
+
+                                <ion-label>
+                                    <h1>Conductor: {{ oferta.usuario.nombre}}</h1>
+                                    <p>Origen: {{ oferta.oferta.origen}}</p>
+                                    <p>Destino: {{ oferta.oferta.destino}}</p>
+                                    <p>Comentarios: {{ oferta.oferta.comentarios}}</p>
+
+                                    <p class="ion-text-right">$: {{ oferta.oferta.tarifa }}</p>
+                                </ion-label>
+
+                            </ion-item>
+
+
+
+
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
 
         </ion-slide>
     </ion-slides>

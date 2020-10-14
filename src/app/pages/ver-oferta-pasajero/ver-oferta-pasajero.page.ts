@@ -3,6 +3,7 @@ import { UsuarioService } from '../../services/usuario.service';
 import { ModalController, AlertController, NavController } from '@ionic/angular';
 import { ChatsPage } from '../chats/chats.page';
 import { PushService } from '../../services/push.service';
+import { ModalCalificacionPage } from '../modal-calificacion/modal-calificacion.page';
 
 @Component({
   selector: 'app-ver-oferta-pasajero',
@@ -114,9 +115,9 @@ export class VerOfertaPasajeroPage implements OnInit {
               const datasJson = JSON.stringify(EnviarOferta);
               console.log(datasJson);
     
-              this.push.enviarNotificacion(datosJson, datasJson).subscribe( resp => {
+              /* this.push.enviarNotificacion(datosJson, datasJson).subscribe( resp => {
                 console.log(resp);
-              });
+              }); */
             }
           }
         }
@@ -184,5 +185,34 @@ export class VerOfertaPasajeroPage implements OnInit {
 
 
 }
+
+
+async calificar() {
+  const modal = await this.modalCtrl.create({
+    component: ModalCalificacionPage,
+    componentProps: {
+      conductor: true,
+      cod: this.oferta.usuario.idUsuario
+    }
+  });
+  await modal.present();
+
+  const { data } = await modal.onDidDismiss();
+
+  }
+
+/* async calificar() {
+  const modal = await this.modalCtrl.create({
+    component: ModalCalificacionPage,
+    componentProps: {
+      conductor: false,
+      cod: this.oferta.usuario.idUsuario
+    }
+  });
+  await modal.present();
+
+  const { data } = await modal.onDidDismiss();
+
+  } */
 
 }

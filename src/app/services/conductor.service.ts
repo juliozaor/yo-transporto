@@ -21,7 +21,9 @@ export class ConductorService {
 
   ofertaConductor: OfertaConductor;
   ofertaPasajero: any;
-  pagina = 0;
+  paginaPasajero = 0;
+  paginaAceptadas = 0;
+  paginaConductor = 0;
 
   constructor(private http: HttpClient,
               // tslint:disable-next-line: deprecation
@@ -214,24 +216,26 @@ export class ConductorService {
 
       
       if (ciudad1 == null || ciudad2 == null){
-        
+
         if ( pull ){
-          this.pagina = 0;
+          this.paginaPasajero = 0;
         }
     
-        this.pagina ++;
+        this.paginaPasajero ++;
+
+        console.log('paginaPasajero  ', this.paginaPasajero );
   
-        return this.http.get<any>(`${ URL }/conductor/buscarOfertasPasajeros/${ esInterUrbano }/?idConductor=${ idUsuario }&pagina=${ this.pagina }`);
+        return this.http.get<any>(`${ URL }/conductor/buscarOfertasPasajeros/${ esInterUrbano }/?idConductor=${ idUsuario }&pagina=${ this.paginaPasajero }`);
   
       }else{
 
       if ( pull ){
-        this.pagina = 0;
+        this.paginaPasajero = 0;
       }
   
-      this.pagina ++;
+      this.paginaPasajero ++;
 
-      return this.http.get<any>(`${ URL }/conductor/buscarOfertasPasajeros/${ esInterUrbano }/?idConductor=${ idUsuario }&ciudad1=${ ciudad1 }&ciudad2=${ ciudad2 }&pagina=${ this.pagina }`);
+      return this.http.get<any>(`${ URL }/conductor/buscarOfertasPasajeros/${ esInterUrbano }/?idConductor=${ idUsuario }&ciudad1=${ ciudad1 }&ciudad2=${ ciudad2 }&pagina=${ this.paginaPasajero }`);
     }
     }
 
@@ -251,11 +255,11 @@ export class ConductorService {
   ofertasAceptadas(idUsuario, pull: boolean = false){
 
     if ( pull ){
-      this.pagina = 0;
+      this.paginaAceptadas = 0;
     }
 
-    this.pagina ++;
-    return this.http.get<any>(`${ URL }/conductor/buscarOfertasAceptadas/${ idUsuario }/?pagina=${ this.pagina }`);
+    this.paginaAceptadas ++;
+    return this.http.get<any>(`${ URL }/conductor/buscarOfertasAceptadas/${ idUsuario }/?pagina=${ this.paginaAceptadas }`);
 
   }
 
@@ -264,11 +268,11 @@ export class ConductorService {
    buscarOfertasConductor(idUsuario: string, pull: boolean = false){
 
     if ( pull ){
-      this.pagina = 0;
+      this.paginaConductor = 0;
     }
 
-    this.pagina ++;
-    return  this.http.get<any>(`${ URL }/conductor/buscar-ofertas-conductor/${ idUsuario }/?pagina=${ this.pagina }`);
+    this.paginaConductor ++;
+    return  this.http.get<any>(`${ URL }/conductor/buscar-ofertas-conductor/${ idUsuario }/?pagina=${ this.paginaConductor }`);
 
   }
 

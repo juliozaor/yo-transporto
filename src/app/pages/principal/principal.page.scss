@@ -18,9 +18,16 @@ ion-select::part(text) {
 
 .redondear {
     border-radius: 20%;
-    border-color: blue($color: #673eb4)
+    border-color: blue($color: #673eb4);
 }
 
 .texto-normal {
     text-transform: none;
+}
+
+.distancia {
+    padding-left: 0%;
+    padding-right: 0%;
+    margin-left: 0%;
+    margin-right: 0%;
 }

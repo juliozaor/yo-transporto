@@ -4,6 +4,10 @@
             <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
         <ion-title>Generar Oferta</ion-title>
+        <ion-buttons slot="end" class="imagenIco">
+            <img src="./assets/imagenes/logo1.png" />
+        </ion-buttons>
+
     </ion-toolbar>
 </ion-header>
 
@@ -24,17 +28,17 @@
                         <ion-item *ngIf="conductor">
                             <ion-label>Tipo de Servicio</ion-label>
                             <ion-select name="codTipoServicio" [(ngModel)]="oferta.codTipoServicio" value="2" multiple="false" placeholder="Servicio">
-                                <ion-select-option value="1" *ngIf="conductor.esInterUrbano == false">Ciudad</ion-select-option>
-                                <ion-select-option value="2" *ngIf="conductor.esInterUrbano == true">Interurbano</ion-select-option>
-                                <ion-select-option value="3" *ngIf="conductor.esInterUrbano == false">Domicilios</ion-select-option>
-                                <ion-select-option value="4" *ngIf="conductor.esInterUrbano == true">Mercancia</ion-select-option>
+                                <ion-select-option value="1">Ciudad</ion-select-option>
+                                <ion-select-option value="2">Interurbano</ion-select-option>
+                                <ion-select-option value="3">Domicilios</ion-select-option>
+                                <ion-select-option value="4">Mercancia</ion-select-option>
                             </ion-select>
                         </ion-item>
                         <ion-item>
                             <ion-row>
                                 <ion-col>
                                     <ion-label>Origen(Municipio)</ion-label>
-                                    <ion-input name="origen" [(ngModel)]="oferta.origen" type="text" placeholder="Sincelejo(sucre)" *ngIf="conductor.esInterUrbano == false"></ion-input>
+                                    <ion-input name="origen" [(ngModel)]="oferta.origen" type="text" placeholder="Sincelejo(sucre)"></ion-input>
                                 </ion-col>
                             </ion-row>
 
@@ -43,7 +47,7 @@
                             <ion-row>
                                 <ion-col>
                                     <ion-label>Destino(Municipio)</ion-label>
-                                    <ion-input name="destino" [(ngModel)]="oferta.destino" type="text" placeholder="Cartagena(Bolivar)" *ngIf="conductor.esInterUrbano == false"></ion-input>
+                                    <ion-input name="destino" [(ngModel)]="oferta.destino" type="text" placeholder="Cartagena(Bolivar)"></ion-input>
                                 </ion-col>
                             </ion-row>
 
@@ -52,7 +56,7 @@
                             <ion-row>
                                 <ion-col>
                                     <ion-label>fecha de salida</ion-label>
-                                    <ion-input name="fecha_salida" [(ngModel)]="oferta.fecha_salida" type="date" placeholder="10/12/2020" *ngIf="conductor.esInterUrbano == false"></ion-input>
+                                    <ion-input name="fecha_salida" [(ngModel)]="oferta.fecha_salida" type="date" placeholder="10/12/2020"></ion-input>
                                 </ion-col>
                             </ion-row>
 
@@ -61,7 +65,7 @@
                             <ion-row>
                                 <ion-col>
                                     <ion-label>Hora de Salida(Opcional)</ion-label>
-                                    <ion-input name="hora_salida" [(ngModel)]="oferta.hora_salida" type="time" placeholder="06:00 p.m." *ngIf="conductor.esInterUrbano == false"></ion-input>
+                                    <ion-input name="hora_salida" [(ngModel)]="oferta.hora_salida" type="time" placeholder="06:00 p.m."></ion-input>
                                 </ion-col>
                             </ion-row>
 

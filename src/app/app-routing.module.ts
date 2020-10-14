@@ -86,6 +86,10 @@ const routes: Routes = [
   {
     path: 'modal-calificacion',
     loadChildren: () => import('./pages/modal-calificacion/modal-calificacion.module').then( m => m.ModalCalificacionPageModule)
+  },
+  {
+    path: 'seguimiento',
+    loadChildren: () => import('./pages/seguimiento/seguimiento.module').then( m => m.SeguimientoPageModule)
   }
 ];
 @NgModule({

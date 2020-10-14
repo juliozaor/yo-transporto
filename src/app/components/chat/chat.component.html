@@ -15,24 +15,6 @@
             </ion-col>
         </ion-row>
 
-        <!-- <ion-row>
-            <ion-col size="12" class="aling-right">
-                <ion-chip color="primary" mode="ios" outline="false">
-                    <ion-label>Julio Jimenez</ion-label>
-                </ion-chip>
-                <p>Hola kelly</p>
-            </ion-col>
-        </ion-row>
-    
-    
-        <ion-row>
-            <ion-col size="12">
-                <ion-chip color="warning" mode="ios" outline="false">
-                    <ion-label>Kelly paternina</ion-label>
-                </ion-chip>
-                <p>Hola Julio</p>
-            </ion-col>
-        </ion-row> -->
 
         <ion-row id="end"></ion-row>
     </ion-grid>
@@ -43,10 +25,10 @@
 <ion-grid fixed>
     <ion-row>
         <ion-col size="9">
-            <ion-input type="text" [(ngModel)]="mensaje" placeholder="Enviar mensaje"></ion-input>
+            <ion-input type="text" (keydown.enter)="enviar_mensaje()" [(ngModel)]="mensaje" placeholder="Enviar mensaje"></ion-input>
         </ion-col>
         <ion-col size="3">
-            <ion-button (click)="enviar_mensaje()" shape="round">
+            <ion-button (click)="enviar_mensaje()" shape="round" color="success">
                 <ion-icon name="caret-forward-outline"></ion-icon>
             </ion-button>
         </ion-col>

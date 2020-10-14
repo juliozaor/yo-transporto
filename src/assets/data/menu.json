@@ -9,17 +9,17 @@
         "redirectTo": "/ofertas-conductor/2"
     },
     {
-        "icon": "cart",
+        "icon": "cube",
         "name": "Carga",
         "redirectTo": "/ofertas-conductor/4"
     },
     {
-        "icon": "cart",
+        "icon": "bicycle",
         "name": "Domicilios",
         "redirectTo": "/ofertas-conductor/3"
     },
     {
-        "icon": "cart",
+        "icon": "business",
         "name": "Ciudad",
         "redirectTo": "/ofertas-conductor/1"
     },
@@ -31,11 +31,6 @@
     {
         "icon": "help-circle",
         "name": "Ayuda",
-        "redirectTo": "/favoritos"
-    },
-    {
-        "icon": "call",
-        "name": "comunicarse",
         "redirectTo": "/favoritos"
     },
 

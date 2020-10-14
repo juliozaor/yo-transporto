@@ -4,10 +4,13 @@
         <ion-buttons slot="start" (click)="toggleMenu()">
             <!-- <ion-icon slot="icon-only" name="menu"></ion-icon> -->
 
-            <ion-menu-button menu="primerMenu" color="primary"></ion-menu-button>
+            <ion-menu-button menu="primerMenu" color="#ffffff"></ion-menu-button>
 
         </ion-buttons>
         <ion-title>Solicitudes</ion-title>
+        <ion-buttons slot="end" class="imagenIco">
+            <img src="./assets/imagenes/logo1.png" />
+        </ion-buttons>
     </ion-toolbar>
 
 
@@ -38,7 +41,14 @@
 <ion-content [scrollEvents]="true" #content class="ion-padding">
 
     <!-- mapa -->
-    <app-mapa [coords]="coords" lugar="conductor" *ngIf="coords"></app-mapa>
+    <ion-grid fixed>
+        <ion-row>
+            <ion-col size="12">
+                <app-mapa [coords]="coords" lugar="conductor" *ngIf="coords"></app-mapa>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
 
     <ion-segment (ionChange)="segmentChanged($event)" color="tertiary" value="recibidas">
 
@@ -71,38 +81,41 @@
 
 
                             <ion-item-sliding *ngFor="let list of ofertasPasajero">
-                                <ion-item color="light" (click)="verOfertaPasajero(list)">
 
-                                    <ion-label>
-                                        <h1 *ngIf=" list.oferta.codTipoServicio == '1'">Ciudad</h1>
-                                        <h1 *ngIf=" list.oferta.codTipoServicio == '2'">Interurbano</h1>
-                                        <h1 *ngIf=" list.oferta.codTipoServicio == '3'">Domicilio</h1>
-                                        <h1 *ngIf=" list.oferta.codTipoServicio == '4'">Mercancia</h1>
+                                <div *ngIf="validar(list.oferta.createdAt, list.oferta.comentarios)">
+                                    <!-- *ngIf="validar(list.oferta.createdAt)" -->
+                                    <ion-item color="light" (click)="verOfertaPasajero(list)">
 
-                                        <p>Comentarios: {{list.oferta.comentarios}}</p>
+                                        <ion-label>
+                                            <h1 *ngIf=" list.oferta.codTipoServicio == '1'">Ciudad</h1>
+                                            <h1 *ngIf=" list.oferta.codTipoServicio == '2'">Interurbano</h1>
+                                            <h1 *ngIf=" list.oferta.codTipoServicio == '3'">Domicilio</h1>
+                                            <h1 *ngIf=" list.oferta.codTipoServicio == '4'">Mercancia</h1>
 
-                                    </ion-label>
-                                    <ion-label slot="end" class="ion-text-right">
-                                        $: {{ list.oferta.tarifa }}
-                                    </ion-label>
-                                </ion-item>
+                                            <p>Comentarios: {{list.oferta.comentarios}}</p>
+
+                                        </ion-label>
+                                        <ion-label slot="end" class="ion-text-right">
+                                            $: {{ list.oferta.tarifa }}
+                                        </ion-label>
+                                    </ion-item>
 
 
-                                <ion-item-options side="start">
-                                    <ion-item-option (click)="favorite(list)">
-                                        <ion-icon slot="icon-only" name="heart"></ion-icon>
-                                    </ion-item-option>
-                                    <ion-item-option color="secondary" (click)="share(list)">
-                                        <ion-icon slot="icon-only" name="share"></ion-icon>
-                                    </ion-item-option>
-                                </ion-item-options>
+                                    <ion-item-options side="start">
+                                        <ion-item-option (click)="favorite(list)">
+                                            <ion-icon slot="icon-only" name="heart"></ion-icon>
+                                        </ion-item-option>
+                                        <ion-item-option color="secondary" (click)="share(list)">
+                                            <ion-icon slot="icon-only" name="share"></ion-icon>
+                                        </ion-item-option>
+                                    </ion-item-options>
 
-                                <ion-item-options side="end">
-                                    <ion-item-option color="danger" (click)="borrar(list)">
-                                        <ion-icon slot="icon-only" name="trash"></ion-icon>
-                                    </ion-item-option>
-                                </ion-item-options>
-
+                                    <ion-item-options side="end">
+                                        <ion-item-option color="danger" (click)="borrar(list)">
+                                            <ion-icon slot="icon-only" name="trash"></ion-icon>
+                                        </ion-item-option>
+                                    </ion-item-options>
+                                </div>
                             </ion-item-sliding>
 
 

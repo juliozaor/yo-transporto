@@ -58,8 +58,10 @@ async cargarOfertas(event?, pull: boolean = false){
 
 
     this.ofertasCompletas.push(...resp.ofertas);
+
+    console.log(this.ofertasCompletas);
     if ( event ){
-      console.log('entro al si', resp.ofertas.length);
+      console.log('entro al si', resp.ofertas);
       event.target.complete();
 
       if (resp.ofertas.length === 0 ){
@@ -108,6 +110,30 @@ async cargarOfertas(event?, pull: boolean = false){
   }
 
   borrar(){
+
+  }
+
+  validar(fecha, com): boolean {
+
+  let fechaActual = new Date();
+  let fechaGuardada = new Date(fecha);
+
+ 
+
+  fechaGuardada.setMinutes(fechaGuardada.getMinutes() + 120);
+
+
+
+  console.log(com, ' : ', fechaActual.getTime(), ' , ', fechaGuardada.getTime());
+
+  if (fechaActual.getTime() < fechaGuardada.getTime()){
+    console.log('se va a mostrar');
+    return true;
+  }else{
+    console.log('No se va a mostrar');
+    return false;
+  }
+
 
   }
 

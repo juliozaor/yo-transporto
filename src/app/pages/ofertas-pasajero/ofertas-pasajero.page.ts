@@ -29,7 +29,7 @@ export class OfertasPasajeroPage implements OnInit {
 
   ngOnInit() {
 
-    this.cargarOfertas(false);
+    this.cargarOfertas(false, true);
 
 
   }
@@ -43,7 +43,6 @@ export class OfertasPasajeroPage implements OnInit {
         console.log(resp.ofertas);
         this.ofertas.push(...resp.ofertas);
         if ( event ){
-          console.log('entro al si', resp.ofertas.length);
           event.target.complete();
     
           if (resp.ofertas.length === 0 && this.tipo === 'ofertadas'){
@@ -60,7 +59,7 @@ export class OfertasPasajeroPage implements OnInit {
           console.log('entro al si', resp.ofertas.length);
           event.target.complete();
     
-          if (resp.ofertas.length === 0 && this.tipo === 'aceptadas'){
+          if (resp.ofertas.length === 0 && this.  tipo === 'aceptadas'){
             
             this.habilitado = false;
           }
@@ -106,7 +105,7 @@ export class OfertasPasajeroPage implements OnInit {
 
     if (valorSegmento === 'aceptadas') {
       this.slides.lockSwipes(false);
-      this.slides.slideTo(0);
+      this.slides.slideTo(1);
       this.slides.lockSwipes(true);
       this.content.scrollToTop();
       this.tipo = 'aceptadas';
@@ -114,7 +113,7 @@ export class OfertasPasajeroPage implements OnInit {
     }
 
     this.slides.lockSwipes(false);
-    this.slides.slideTo(1);
+    this.slides.slideTo(0);
     this.slides.lockSwipes(true);
     this.content.scrollToTop();
     this.tipo = 'ofertadas';

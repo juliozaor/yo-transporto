@@ -15,21 +15,12 @@ const URL = environment.url;
 })
 export class PushService {
 
-  mensajes: OSNotificationPayload[] = [
-    /* {
-      title: 'titulo de la push ',
-      body: 'Este es el body de la push',
-      date: new Date()
+  activadas = false;
 
-    } */
-  ];
+  swLocation = '/ngsw-worker.js';
 
+  swReg: any;
 
-  oferta: any;
-
-  userId: string;
-
-  pushListener = new EventEmitter<OSNotificationPayload>();
 
   constructor(private oneSignal: OneSignal,
               private storage: Storage,
@@ -38,125 +29,118 @@ export class PushService {
               private conductorService: ConductorService,
               private navCtrl: NavController){
 
-                this.cargarMensajes();
+               // this.cargarMensajes();
+
               }
 
-  async getMensajes() {
-    await this.cargarMensajes();
-    return [...this.mensajes];
+
+
+  getActivadas(){
+    return this.activadas;
   }
 
   configuracionInicial(){
 
-    this.oneSignal.startInit('9f2e2722-8482-4865-8c81-d722103fb75c', '856156621973');
+   // confirmar si se puede usar el sw
+    if ( navigator.serviceWorker){
 
-    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
+         navigator.serviceWorker.getRegistration().then( reg => {
+             // this.swReg = reg;
+             // console.log('activadas', this.activadas);
 
-    this.oneSignal.handleNotificationReceived().subscribe(( noti ) => {
-     // do something when notification is received
-     console.log('notificacion recibida', noti);
-     this.notificacionRecibida( noti, '1' );
-    });
+             reg.pushManager.getSubscription().then(this.verificaSuscripcion);
+              //console.log('entro1:', this.swReg );
+              //this.swReg.pushManager.getSubscription().then( this.verificaSuscripcion);
+              
+          });
 
-    this.oneSignal.handleNotificationOpened().subscribe( async ( noti ) => {
-      // do something when a notification is opened
-      console.log('notificacion abierta', noti);
-      await this.notificacionRecibida( noti.notification, '2' );
-    });
+     }
 
-    // Obtener ID del subscriptor
-    this.oneSignal.getIds().then( info => {
-        this.userId = info.userId;
-    });
-
-
-    this.oneSignal.endInit();
   }
 
-  async notificacionRecibida( noti: OSNotification, resp ){
-    const recibirOferta = noti.payload.additionalData;
+  verificaSuscripcion( act ){
 
-    if ( resp === '2'){
+    if ( act ){
 
-      if (recibirOferta.lugar === 'aceptar pasajero'){
-     // this.oferta = recibirOferta.oferta;
-     // console.log(this.oferta);
-
-      this.usuarioService.ofertaConductor = await recibirOferta.oferta;
-
-      this.navCtrl.navigateRoot( `/ofertas-pasajero`, { animated: true } );
-
-     
-      }else if (recibirOferta.lugar === 'aceptar oferta de pasajero'){
-
-        this.navCtrl.navigateRoot( `/ver-oferta-pasajero`, { animated: true });
-
-      }else if (recibirOferta.lugar === 'aceptar oferta de conductor'){
-
-         this.navCtrl.navigateRoot( `/conductor`, { animated: true });
-
-       }else if (recibirOferta.lugar === 'aceptar pasajero'){
-        // this.oferta = recibirOferta.oferta;
-        // console.log(this.oferta);
-
-         this.conductorService.ofertaPasajero = await recibirOferta.oferta;
-
-         this.navCtrl.navigateRoot( `/ver-oferta-conductor-pasajero/2`, { animated: true } );
-
-
-         }
-
-
+      console.log('verificar verdadera');
+      this.activadas = true;
+    }else{
+      console.log('verificar falsa');
+      this.activadas = false;
     }
+  }
 
-    /* await this.cargarMensajes();
+  enviarNotificacion() {
 
-    const payload = noti.payload;
+    const notificationOpts = {
+      body: 'Este es el cuerpo de la notificación',
+      icon: '../assets/icons/icon-72x72.png'
+    };
 
-    const existePush = this.mensajes.find( mensaje => mensaje.notificationID === payload.notificationID );
+    const n = new Notification('Hola mundo!', notificationOpts);
 
-    if ( existePush ){
+    n.onclick = () => {
+      console.log('click');
+    };
+  }
+
+
+  notificarme() {
+
+    if ( !window.Notification ) {
+      console.log('Este navegador no soporta notificaciones');
       return;
     }
 
-    this.mensajes.unshift( payload );
-    this.pushListener.emit( payload );
+    if ( Notification.permission === 'granted' ) {
 
-    await this.guardarMensajes(); */
+        this.enviarNotificacion();
+
+    }else if ( (Notification.permission === 'default') || (Notification.permission !== 'denied')  ){
+
+      Notification.requestPermission ( ( permission ) => {
+        console.log( permission );
+        if ( permission === 'granted' ) {
+          // tslint:disable-next-line: no-unused-expression
+          this.enviarNotificacion();
+        }
+      });
+    }
   }
 
-  guardarMensajes() {
-
-    this.storage.set('mensajes', this.mensajes);
+  getPublicKey() {
+   return fetch(`${ URL }/notificacion/key/`)
+        .then( res => res.arrayBuffer())
+        .then(key => new Uint8Array(key));
   }
 
-  async cargarMensajes() {
-   /* this.storage.clear(); */
-   this.mensajes = await this.storage.get ('mensajes') || [];
+  activarNotificaciones(){
+    //console.log('entro3:', this.swReg );
+    /* if ( !this.swReg ){
+      return console.log('No hay registro SW');
+    } */
 
-   return this.mensajes;
-
-  }
-
-  async borrarMensajes(){
-    await this.storage.remove('mensajes');
-    this.mensajes = [];
-    this.guardarMensajes();
-  }
-
-  enviarNotificacion(datos, oferta){
-
-    //const datos = { titulo, mensaje, idSignal };
+    this.getPublicKey().then( function( key ) {
 
 
-    const headers = new HttpHeaders({
-      'x-token': this.usuarioService.token
+      navigator.serviceWorker.getRegistration().then( reg => {
+        reg.pushManager.subscribe( {
+          userVisibleOnly: true,
+          applicationServerKey: key
+        }).then(res => res.toJSON())
+        .then( suscripcion => {
+          console.log(suscripcion);
+
+          this.verificaSuscripcion(suscripcion);
+
+      });
+      });
+
+
     });
-
-    return this.http.post<any>(`${ URL }/notificacion/?datos=${datos}&data=${oferta}`, '',  { headers } );
-
-
   }
+
+
 
 }
 

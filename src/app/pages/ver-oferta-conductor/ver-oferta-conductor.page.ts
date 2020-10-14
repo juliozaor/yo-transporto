@@ -119,9 +119,9 @@ async aceptar(codPasajeroOfertaConductor, signal){
             const datasJson = JSON.stringify(EnviarOferta);
             console.log(datasJson);
   
-            this.push.enviarNotificacion(datosJson, datasJson).subscribe( resp => {
+            /* this.push.enviarNotificacion(datosJson, datasJson).subscribe( resp => {
               console.log(resp);
-            });
+            }); */
             
           }
           

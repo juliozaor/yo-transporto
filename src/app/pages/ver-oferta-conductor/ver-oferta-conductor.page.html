@@ -4,6 +4,10 @@
             <ion-back-button defaultHref="/conductor"></ion-back-button>
         </ion-buttons>
         <ion-title>Ver oferta</ion-title>
+        <ion-buttons slot="end" class="imagenIco">
+            <img src="./assets/imagenes/logo1.png" />
+        </ion-buttons>
+
     </ion-toolbar>
 </ion-header>
 
@@ -148,7 +152,7 @@
                     </ion-label>
                 </ion-col>
             </ion-row>
-            <ion-row *ngFor="let p of pasajeros; let i = index" class="bgcolor border">
+            <ion-row *ngFor="let p of pasajeros; let i = index" class="border">
                 <ion-col size="4">
                     <ion-label>
                         <p>{{ p.nombre }}</p>

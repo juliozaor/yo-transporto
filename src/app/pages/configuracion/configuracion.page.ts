@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
 import { MenuController } from '@ionic/angular';
+import { PushService } from '../../services/push.service';
 
 @Component({
   selector: 'app-configuracion',
@@ -9,10 +10,17 @@ import { MenuController } from '@ionic/angular';
 })
 export class ConfiguracionPage implements OnInit {
 
+
+  activadas = false;
+  desactivadas = true;
+
   constructor(private usuarioService: UsuarioService,
-              private menuCtrl: MenuController ) { }
+              private menuCtrl: MenuController,
+              private push: PushService ) { }
 
   ngOnInit() {
+    this.push.configuracionInicial();
+    this.activadas = this.push.getActivadas();
   }
 
   logout(){
@@ -22,5 +30,14 @@ export class ConfiguracionPage implements OnInit {
   toggleMenu(){
     this.menuCtrl.toggle();
   }
+
+  btnDesactivadas(){
+    this.push.activarNotificaciones();
+  }
+
+  btnActivadas(){
+    console.log('Activadas');
+  }
+
 
 }

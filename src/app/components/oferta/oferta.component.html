@@ -11,7 +11,8 @@
     <ion-row>
         <ion-col size="4">
             <ion-avatar>
-                <img src="../assets/avatars/{{oferta.usuario.foto}}" />
+                <img src="../../../assets/avatars/{{oferta.usuario.foto}}" />
+
             </ion-avatar>
         </ion-col>
         <ion-col size="8">
@@ -152,13 +153,6 @@
         </ion-col>
     </ion-row>
 
-
-    <!-- <ion-row>
-        <ion-col size="12">
-            <ion-icon name="{{c.icon}}" style="zoom:3.0; color: yellow;" *ngFor="let c of calificacion" (click)="calificar(c.value)"></ion-icon>
-
-        </ion-col>
-    </ion-row> -->
 
     <ion-row *ngIf="desde == '1'">
         <ion-col size="12">

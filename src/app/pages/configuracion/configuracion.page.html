@@ -3,16 +3,31 @@
         <ion-buttons slot="start" (click)="toggleMenu()">
             <!--  <ion-icon slot="icon-only" name="menu"></ion-icon> -->
 
-            <ion-menu-button menu="primerMenu" color="primary"></ion-menu-button>
+            <ion-menu-button menu="primerMenu" color="#ffffff"></ion-menu-button>
 
         </ion-buttons>
         <ion-title>configuración</ion-title>
+        <ion-buttons slot="end" class="imagenIco">
+            <img src="./assets/imagenes/logo1.png" />
+        </ion-buttons>
+
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
     <ion-grid fixed>
+        <ion-row>
+            <ion-col size="12">
+
+                <ion-button (click)="btnActivadas()" expand="block" shape="round" color="success" *ngIf="activadas">
+                    Notificaciones Activadas
+                </ion-button>
+                <ion-button (click)="btnDesactivadas()" expand="block" shape="round" color="danger" *ngIf="desactivadas">
+                    Notificaciones Desactivadas
+                </ion-button>
+            </ion-col>
+        </ion-row>
         <ion-row>
             <ion-col size="12">
                 <ion-button (click)="logout()" expand="block" fill="clear" shape="round">

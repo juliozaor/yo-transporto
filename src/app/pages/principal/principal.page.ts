@@ -24,12 +24,14 @@ export class PrincipalPage implements OnInit {
   tipo = 1;
 
   ofertaCiudad: any = {
+    origen: '',
     destino: '',
     tarifa: '',
     comentarios: '',
     aire: 'false',
     musica: 'false',
     asientos: 'false',
+    maleta: 'false',
     codTipoServicio: '1'
   };
 
@@ -47,9 +49,11 @@ export class PrincipalPage implements OnInit {
     destino: '',
     tarifa: '',
     comentarios: '',
+    pasajeros: '',
     aire: 'false',
     musica: 'false',
     asientos: 'false',
+    maleta: 'false',
     origen: '',
     fecha: '',
     codTipoServicio: '2'
@@ -60,6 +64,7 @@ export class PrincipalPage implements OnInit {
     tarifa: '',
     comentarios: '',
     origen: '',
+    peso: '',
     fecha: '',
     codTipoServicio: '4'
   };
@@ -85,14 +90,23 @@ export class PrincipalPage implements OnInit {
        console.log('Error getting location', error);
      });
 
+    /* this.ubicacionService.ubicacion.subscribe(direccion => {
+        console.log(direccion);
+        this.ofertaEnvio.origen = direccion;
+        this.ofertaInter.origen = direccion;
+        this.ofertaMercancia.origen = direccion;
+        this.ofertaCiudad.origen = direccion;
+     });
+ */
 
   }
 
   ionViewDidEnter(){
     this.direccion = this.ubicacionService.getDireccion();
-    this.ofertaEnvio.origen = this.direccion;
+   /*  this.ofertaEnvio.origen = this.direccion;
     this.ofertaInter.origen = this.direccion;
     this.ofertaMercancia.origen = this.direccion;
+    this.ofertaCiudad.origen = this.direccion; */
   }
 
   toggleMenu(){
@@ -145,7 +159,7 @@ export class PrincipalPage implements OnInit {
 
  async generar(oferta){
     await this.usuarioService.crearOfertaPasajero(oferta).then( resp => {
-      this.ui.alertaInformativa('Su oferta fue generada exitosamente');
+      this.ui.alertaInformativa('Su oferta fue generada exitosamente, puede ver el estado de su oferta en el menú "Mis Ofertas"');
       this.borrar();
     });
   }
@@ -164,12 +178,14 @@ export class PrincipalPage implements OnInit {
   borrar(){
     
     this.ofertaCiudad = {
+      origen: '',
       destino: '',
       tarifa: '',
       comentarios: '',
       aire: 'false',
       musica: 'false',
       asientos: 'false',
+      maleta: 'false',
       codTipoServicio: '1'
     };
   
@@ -187,9 +203,11 @@ export class PrincipalPage implements OnInit {
       destino: '',
       tarifa: '',
       comentarios: '',
+      pasajeros: '',
       aire: 'false',
       musica: 'false',
       asientos: 'false',
+      maleta: 'false',
       origen: '',
       fecha: '',
       codTipoServicio: '2'
@@ -200,6 +218,7 @@ export class PrincipalPage implements OnInit {
       tarifa: '',
       comentarios: '',
       origen: '',
+      peso: '',
       fecha: '',
       codTipoServicio: '4'
     };

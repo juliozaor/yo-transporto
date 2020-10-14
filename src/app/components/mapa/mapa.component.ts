@@ -26,10 +26,14 @@ export class MapaComponent implements OnInit {
 
   @ViewChild('mapa') mapa: ElementRef;
 
+ 
+
   constructor(private http: HttpClient,
               private ubicacionService: UbicacionService) { }
 
   ngOnInit() {
+
+    console.log("cargo 1");
     let latLng;
     let lat;
     let lng;
@@ -74,14 +78,7 @@ export class MapaComponent implements OnInit {
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiemFvciIsImEiOiJja2Jqd3RodDAwdGlyMzBvZHUwM3N6NWtrIn0.AeiL56UBu8MiFEpuusJO6Q';
 
-    // Obtener la ciudad actual
-    this.http.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},
-                  ${lat}.json?access_token=${mapboxgl.accessToken}`).subscribe((lugar:any) => {
-     // console.log('Estoy en el lugar: ', lugar.features[1].text);
-    this.ubicacionService.setCiudad(lugar.features[1].text);
-    this.ubicacionService.setDireccion(lugar.features[0].text);
-      //this.ciudad.emit(lugar.features[1].text);
-    });
+    this.obtenerubicacionActual(lat, lng);
 
 
 
@@ -95,23 +92,58 @@ export class MapaComponent implements OnInit {
       zoom: 15
       });
 
-      const marker = new mapboxgl.Marker()
+      const marker = new mapboxgl.Marker({
+        draggable: true
+      })
     .setLngLat([ lng, lat ])
     .addTo( map );
+
+
+      marker.on('dragend', () => {
+        
+        lat = marker.getLngLat().lat;
+        lng = marker.getLngLat().lng;
+
+        this.obtenerubicacionActual(lat, lng);
+
+
+      });
+
+
+      setTimeout( function(){
+        map.resize();
+        }, 1000);
+
+
+
 
     }else if ( this.lugar === 'conductor'){
       console.log('Mostrar conductor');
 
       const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/mapbox/outdoors-v11',
       center: [ lng, lat ],
       zoom: 15
       });
 
-      const marker = new mapboxgl.Marker()
+      const marker = new mapboxgl.Marker({
+        draggable: true
+      })
     .setLngLat([ lng, lat ])
     .addTo( map );
+
+      function onDragEnd() {
+        const lngLat = marker.getLngLat();
+        console.log('cordenadas: ', lngLat);
+        }
+         
+      marker.on('dragend', onDragEnd);
+
+
+      setTimeout( function(){
+        map.resize();
+        }, 1000);
 
     }else if (this.lugar === 'oferta'){
           console.log('mostrar mapa oferta');
@@ -130,7 +162,7 @@ export class MapaComponent implements OnInit {
 
           const map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mapbox/outdoors-v11',
             zoom: 15
             });
 
@@ -145,6 +177,20 @@ export class MapaComponent implements OnInit {
           const marker = new mapboxgl.Marker()
           .setLngLat([ lng, lat ])
           .addTo( map );
+
+          function onDragEnd() {
+            const lngLat = marker.getLngLat();
+            console.log('cordenadas: ', lngLat);
+            }
+             
+          marker.on('dragend', onDragEnd);
+    
+
+          setTimeout( function(){
+            map.resize();
+            }, 1000);
+
+
     }
 
     
@@ -152,19 +198,25 @@ export class MapaComponent implements OnInit {
 
   }
 
-  /* ionViewWillEnter(){
+  obtenerubicacionActual(lat, lng){
+    // Obtener la ciudad actual
+    this.http.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},
+                  ${lat}.json?access_token=${mapboxgl.accessToken}`).subscribe((lugar:any) => {
+     // console.log('Estoy en el lugar: ', lugar.features[1].text);
 
-   
+    console.log(lugar.features);
+    this.ubicacionService.setCiudad(lugar.features[1].text);
+    this.ubicacionService.setDireccion(lugar.features[0].text);
+      //this.ciudad.emit(lugar.features[1].text);
+      
+    });
+  }
 
-  } */
+  ionViewDidEnter(){
 
-  obtenerLugar(){
-   
-
-    console.log();
-
-
+   console.log("cargo 2");
 
   }
+
 
 }

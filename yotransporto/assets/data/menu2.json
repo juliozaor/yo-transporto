@@ -14,11 +14,6 @@
         "redirectTo": "/favoritos"
     },
     {
-        "icon": "call",
-        "name": "Soporte",
-        "redirectTo": "/favoritos"
-    },
-    {
         "icon": "settings",
         "name": "Configuración",
         "redirectTo": "/configuracion"

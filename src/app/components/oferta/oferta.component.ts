@@ -42,7 +42,7 @@ export class OfertaComponent implements OnInit {
     this.oferta = this.usuarioService.ofertaConductor;
 
 
-
+    console.log(this.oferta);
 
     /* this.descuento = this.oferta.oferta.tarifa;
     this.descuento = this.descuento - (this.descuento * 0.1); */
@@ -104,10 +104,10 @@ export class OfertaComponent implements OnInit {
             const datasJson = JSON.stringify(EnviarOferta);
             
 
-            this.push.enviarNotificacion(datosJson, datasJson).subscribe( resp => {
+            /* this.push.enviarNotificacion(datosJson, datasJson).subscribe( resp => {
               console.log(resp);
             });
-
+ */
           }
         }
       ]

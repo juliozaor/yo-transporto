@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -10,6 +10,8 @@ export class UbicacionService {
 
   private ciudad: string;
   private direccion: string;
+
+  ubicacion = new EventEmitter<any>();
 
   constructor(private http: HttpClient) { }
 
@@ -24,6 +26,9 @@ export class UbicacionService {
 
   setDireccion(direccion){
     this.direccion = direccion;
+
+    this.ubicacion.emit(this.direccion);
+
   }
 
   getDireccion(){

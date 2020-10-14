@@ -4,6 +4,9 @@
             <ion-back-button defaultHref="/ofertas-pasajero"></ion-back-button>
         </ion-buttons>
         <ion-title>Oferta Pasajero</ion-title>
+        <ion-buttons slot="end" class="imagenIco">
+            <img src="./assets/imagenes/logo1.png" />
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -75,10 +78,14 @@
             </ion-col>
             <ion-col size="6">
                 <ion-text>
-                    <p *ngIf=" oferta.aire  != false">Aire acondicionado</p>
-                    <p *ngIf=" oferta.musica  != false">Musica</p>
-                    <p *ngIf=" oferta.sientos  != false">Asientos para Bebe</p>
-                    <p *ngIf=" oferta.maleta  != false">Maletero</p>
+                    <p *ngIf=" oferta.aire  != false">
+                        <ion-icon name="checkmark-outline"></ion-icon>Aire acondicionado</p>
+                    <p *ngIf=" oferta.musica  != false">
+                        <ion-icon name="checkmark-outline"></ion-icon>Musica</p>
+                    <p *ngIf=" oferta.asientos  != false">
+                        <ion-icon name="checkmark-outline"></ion-icon>Asientos para Bebe</p>
+                    <p *ngIf=" oferta.maleta  != false">
+                        <ion-icon name="checkmark-outline"></ion-icon>Maletero</p>
                 </ion-text>
             </ion-col>
         </ion-row>
@@ -115,7 +122,7 @@
                     </ion-label>
                 </ion-col>
             </ion-row>
-            <ion-row *ngFor="let p of conductores; let i = index" class="bgcolor border">
+            <ion-row *ngFor="let p of conductores; let i = index" class="border">
                 <ion-col size="4">
                     <ion-label>
                         <p>{{ p.nombre }}</p>
@@ -139,6 +146,12 @@
                         <ion-label>Rechazar</ion-label>
                     </ion-chip>
                 </ion-col>
+
+                <ion-col size="4" *ngIf="habilitarChat == true">
+                    <ion-chip class="color-green" color="dark" mode="ios" outline="false" (click)="calificar()">
+                        <ion-label>Calificar</ion-label>
+                    </ion-chip>
+                </ion-col>
             </ion-row>
         </ion-grid>
 
@@ -151,6 +164,8 @@
                 </ion-button>
             </ion-col>
         </ion-row>
+
+
     </ion-grid>
 
 </ion-content>

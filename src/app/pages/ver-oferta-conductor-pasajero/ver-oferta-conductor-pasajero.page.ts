@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConductorService } from '../../services/conductor.service';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, NavController } from '@ionic/angular';
 import { ChatsPage } from '../chats/chats.page';
 import { PushService } from '../../services/push.service';
 import { ModalCalificacionPage } from '../modal-calificacion/modal-calificacion.page';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Component({
   selector: 'app-ver-oferta-conductor-pasajero',
@@ -30,6 +31,7 @@ export class VerOfertaConductorPasajeroPage implements OnInit {
               private conductorService: ConductorService,
               private alertController: AlertController,
               private modalCtrl: ModalController,
+              private navCtrl: NavController,
               private push: PushService,
               ) { }
 
@@ -59,6 +61,9 @@ export class VerOfertaConductorPasajeroPage implements OnInit {
 
   }
 
+
+  
+
   async aceptar(){
 
     const alert = await this.alertController.create({
@@ -77,15 +82,23 @@ export class VerOfertaConductorPasajeroPage implements OnInit {
 
             };
 
-            console.log(this.valor);
+           // console.log(this.valor);
           // guardar en pasajero-ofertaConductor
             this.conductorService.aceptarOferta(datos).subscribe( resp => {
               this.habilitarBoton = true;
+
+
+
+
 
             //  this.habilitarChat = false;
 
             //  this.idConductorOfertaPasajero = resp.conductor.idConductorOfertaPasajero;
              // this.navCtrl.navigateRoot( `/chats/${ resp.conductor.idPasajeroOfertaConductor}`, { animated: true } );
+            //  this.conductorService.ofertaPasajero = this.oferta;
+              
+              this.navCtrl.navigateRoot( `/conductor`, { animated: true } );
+
 
             });
 
@@ -102,11 +115,11 @@ export class VerOfertaConductorPasajeroPage implements OnInit {
 
             const datosJson = JSON.stringify(datosE);
             const datasJson = JSON.stringify(EnviarOferta);
-            
 
-            this.push.enviarNotificacion(datosJson, datasJson).subscribe( resp => {
+
+            /* this.push.enviarNotificacion(datosJson, datasJson).subscribe( resp => {
               console.log(resp);
-            });
+            }); */
 
 
           }
@@ -148,5 +161,10 @@ export class VerOfertaConductorPasajeroPage implements OnInit {
     const { data } = await modal.onDidDismiss();
 
     }
+
+
+    /* atras(){
+      location.href = '#/conductor';
+    } */
 
 }
